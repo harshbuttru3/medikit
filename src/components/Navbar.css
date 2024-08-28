@@ -1,6 +1,57 @@
-#nav-container{
+.Navbar{
+    height: 10%;
+    width: 100%;
+    text-transform: capitalize;
+    font-size: 1.2vw;
     display: flex;
-    height: 50px;
-    background-color: aliceblue;
-    width: 100vw;
+    align-items: center;
 }
+
+.Navbar h2{
+    margin-right: 25%;
+    font-family: "cursive";
+    color: rgb(102, 216, 45);
+}
+
+.Navbar .navopt{
+    margin: 0.15% 0%;
+    height: 100%;
+    width: 100%;
+    text-transform: capitalize;
+    padding-left: 2%;
+    font-size: 1vw;
+    display: flex;
+    align-items: center;
+    gap: 3%;
+    transition: color 0.3s ease;
+
+}
+
+a{
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+
+
+.Navbar h1{
+    font-size: 1.3vw;
+    font-weight: bold;
+    padding: 0.5vh 1vw;
+    display: inline-block;
+    padding: 10px 20px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #06d6a0;
+    border: none;
+    border-radius: 30px;
+    transition: color 0.3s ease;
+    /* https://coolors.co/palette/011627-fdfffc-2ec4b6-e71d36-ff9f1c */
+    
+}
+
+.Navbar .navopt h1:hover{
+    cursor: pointer;
+    background-color: #000814;
+    color: white;
+} 

@@ -1,18 +1,36 @@
-import React from 'react'
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import './Navbar.css'
+import './navbar.css';
+
 
 function Navbar() {
+    
   return (
-   <>
-   <div id="nav-container">
-    <div id="home">Home</div>
-    <div id="home">Home</div>
-    <div id="home">Home</div>
-    <div id="home">Home</div>
-   </div>
-   </>
-  )
+    <div className='Navbar'>
+      <div className="navopt">
+        <h2>AssureLance</h2>
+        <h3>
+          <NavLink to="/about">About</NavLink>
+        </h3>
+        <h3>
+          <NavLink to="/project">Project</NavLink>
+        </h3>
+        <h3>
+          <NavLink to="/information">Information</NavLink>
+        </h3>
+        <h3>
+          <NavLink to="/info">Hr & Training</NavLink>
+        </h3>
+        <h3>
+          <NavLink to="#">More</NavLink>
+        </h3>
+        <h1>
+          {/* here you have to change the direction of the directory of the intermediate page of registering the user . */}
+          <NavLink to="/usertype">Register/Login</NavLink>
+        </h1>
+      </div>
+    </div>
+  );
 }
 
-export default Navbar
+export default Navbar;

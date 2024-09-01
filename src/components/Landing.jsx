@@ -11,7 +11,7 @@ class Landing extends Component {
     this.thumbnailBorderRef = createRef();
     this.timeRef = createRef();
 
-    this.timeRunning = 3000;
+    this.timeRunning = 2000;
     this.timeAutoNext = 7000;
   }
 

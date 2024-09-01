@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
@@ -7,7 +7,7 @@ function Navbar() {
     <>
      <header>
           <nav>
-            <NavLink to="/" className='navlink' exact activeClassName="active">HOME</NavLink>
+            <NavLink to="/" className='navlink' activeClassName="active">HOME</NavLink>
             <NavLink to="/discover" className='navlink' activeClassName="active">DISCOVER</NavLink>
             <NavLink to="/dashboard" className='navlink' activeClassName="active">DASHBOARD</NavLink>
             <NavLink to="/contact" className='navlink' activeClassName="active">CONTACT</NavLink>

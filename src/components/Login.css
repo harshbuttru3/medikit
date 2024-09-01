@@ -1,0 +1,152 @@
+#loginreg{
+    height: 100vh;
+    width: 100vw;
+    /* background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.FKsK9QqfnzvTNNvC3I5BOQHaEo%26pid%3DApi&f=1&ipt=d3fee62d74a20c272389b886403eb082f3168b0e48f8f9e229b658fe562aa2dd&ipo=images"); */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    background-image: url("../assets/login.jpeg");
+}
+
+#container {
+    height: 80%;
+    width: 60%;
+    background-color: rgba(255, 255, 255, 0.25);
+    margin: 7vh auto;
+    border-radius: 40px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4vh 6vw;
+    color: white;
+    gap: 2%;
+
+}
+
+#container #logphoto {
+    height: 100%;
+    width: 40%;
+    border-radius: 40px 0px 0px 40px;
+    background-image: url("../assets/doc.jpeg");
+    background-size: cover;
+    background-position: center;
+}
+
+#container .form-container {
+    height: 100%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    border-radius: 0px 40px 40px 0px;
+    padding: 0px 10px;
+}
+
+#container .form-container h2 {
+    font-size: 2.5vw;
+    margin-bottom: 40px;
+    color: white;
+}
+
+#container .form-container .inputing {
+    height: 8vh;
+    width: 80%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 2.5px solid white;
+    color: white;
+    text-align: center;
+    font-size: 1.3vw;
+    margin-bottom: 20px;
+}
+
+#container .form-container input::placeholder {
+    color: white;
+}
+
+#container .form-container button {
+    width: 80%;
+    height: 8vh;
+    background-color: transparent;
+    border: 2px solid white;
+    font-size: 1.5vw;
+    color: white;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+#container .form-container button:hover{
+    background-color: #0be545;
+    border: none;
+    transition: all ease 0.5s;
+}
+
+#container .form-container .button button:hover{
+    background-color: #0be545;
+    border: none;
+    transition: all ease 0.5s;
+}
+
+
+#container .form-container .button {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin-bottom: 50px;
+}
+
+#container .form-container .button button {
+    flex: 1;
+    background-color: transparent;
+    border: 2px solid white;
+    font-size: 1.3vw;
+    color: white;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 6vh;
+}
+
+#container .form-container h3 span {
+    color: #0be545;
+    cursor: pointer;
+}
+
+.fa-google {
+    background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+
+@media (max-width: 1200px) {
+    #logphoto {
+        display: none;
+    }
+
+    #container {
+        width: 60vw; /* Make the container full width */
+        justify-content: center; /* Center the form container */
+        align-items: center;
+    }
+
+    .form-container {
+        border-radius: 0;
+    }
+
+    .form-container h2 {
+        font-size: 10vw; /* Adjust heading size for mobile */
+    }
+
+    .inputing, button {
+        font-size: 4vw; /* Adjust input and button font size for mobile */
+    }
+}

@@ -1,6 +1,6 @@
-*{
-  /* background-color: black; */
-  /* color: white; */
+/* *{
+  background-color: black;
+  color: white;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -11,4 +11,13 @@ html,body{
   width: 100%;
   background-color: black;
   color: rgb(155, 155, 155);
+} */
+ *{
+  cursor: url('/src/assets/cursor2.png'), auto;
+ }
+ body{
+  overflow-x: hidden;
+ }
+ ::-webkit-scrollbar {
+  /* display: none; */
 }

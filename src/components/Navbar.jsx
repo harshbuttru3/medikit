@@ -1,51 +1,21 @@
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import React from 'react'
+import { NavLink } from 'react-bootstrap';
+import './Navbar.css';
 
-function NavScrollExample() {
+function Navbar() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary sticky-top">
-      <Container fluid>
-        <Navbar.Brand className='ms-4 fw-bold'   href="#">Medikit</Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll"> 
-          <Nav
-            className="me-auto my-2 my-lg-0"
-            style={{ maxHeight: '100px' }}
-            navbarScroll
-          >
-            <Nav.Link href="#action1" className='ms-4'>Home</Nav.Link>
-            {/* <Nav.Link href="#action2">link</Nav.Link> */}
-            <NavDropdown title="Our Services" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="#">
-              About Us
-            </Nav.Link>
-          </Nav>
-          <Form className="d-flex me-4">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2 ms-4"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
+    <>
+     <header>
+          <nav>
+            <NavLink to="/" className='navlink' exact activeClassName="active">HOME</NavLink>
+            <NavLink to="/discover" className='navlink' activeClassName="active">DISCOVER</NavLink>
+            <NavLink to="/dashboard" className='navlink' activeClassName="active">DASHBOARD</NavLink>
+            <NavLink to="/contact" className='navlink' activeClassName="active">CONTACT</NavLink>
+           <NavLink to="/login" id="login" activeClassName="active">LOGIN</NavLink>
+          </nav>
+        </header>
+    </>
+  )
 }
 
-export default NavScrollExample;
+export default Navbar;

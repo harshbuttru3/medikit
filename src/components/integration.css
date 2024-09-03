@@ -13,9 +13,9 @@
 }
 
 .page5 h2 {
-    font-size: 4vw;
+    font-size: 80px;
     text-transform: uppercase;
-    font-weight: 400;
+    font-weight: 600;
     margin-bottom: 30px;
     text-align: center;
 }
@@ -55,6 +55,6 @@
     }
 
     .page5 h2 {
-        font-size: 6vw; /* Adjust heading size on smaller screens */
+        font-size: 50px; /* Adjust heading size on smaller screens */
     }
 }

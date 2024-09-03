@@ -1,4 +1,4 @@
-#dashboard{
+#Highlights{
     width: 100%;
     height: 90vh;
     box-sizing: border-box;
@@ -11,7 +11,7 @@
     justify-content: center;
 }
 
-#dashboard .dashboardbg{
+#Highlights .Highlightsbg{
     height: 90%;
     width: 90%;
     background-color: rgba(114, 114, 114, 0.225);
@@ -23,19 +23,19 @@
     flex-direction: column;
 }
 
-#dashboard .dashboardbg h1{
+#Highlights .Highlightsbg h1{
     text-align: center;
 }
 
 
-#dashboard .dashboardbg h1 span{
+#Highlights .Highlightsbg h1 span{
     font-size: 80px;
     padding: 1px 30px;
     border-radius: 20px;
     font-weight: 600;
 }
 
-#dashboard .dashboardbg .dashboardcontent{
+#Highlights .Highlightsbg .Highlightscontent{
     height: 80%;
     width: 100%;
     /* background-color: red; */
@@ -46,7 +46,7 @@
     align-items: center; 
 }
 
-#dashboard .dashboardbg .dashboardcontent .dash{
+#Highlights .Highlightsbg .Highlightscontent .dash{
     height: 40%;
     width: 45%;
     background-color: rgba(255, 255, 255, 0.445);
@@ -59,7 +59,7 @@
     font-weight: 500;
 }
 
-#dashboard .dashboardbg .dashboardcontent .dash:hover{
+#Highlights .Highlightsbg .Highlightscontent .dash:hover{
     border: none;
     background-color: #0be545;
     font-weight: 700;
@@ -68,21 +68,21 @@
 }
 
 @media (max-width: 768px) {
-    #dashboard .dashboardbg h1 span{
+    #Highlights .Highlightsbg h1 span{
         font-size: 30px;
     }
 
-    #dashboard .dashboardbg h1{
+    #Highlights .Highlightsbg h1{
         margin-bottom: 30px;
     }
 
-    #dashboard .dashboardbg .dashboardcontent{
+    #Highlights .Highlightsbg .Highlightscontent{
         flex-direction: column;
         align-items: center;
         padding: 10px;
     }
     
-    #dashboard .dashboardbg .dashboardcontent .dash{
+    #Highlights .Highlightsbg .Highlightscontent .dash{
         margin-bottom: 20px;
         width: 100%;
         height: 20%;

@@ -1,0 +1,92 @@
+#footer {
+    height: auto; /* Changed from 80vh to auto for better control on small screens */
+    width: 100%;
+    box-sizing: border-box;
+    background-color: whitesmoke;
+    padding-top: 10%;
+    color: black;
+    padding-bottom: 20px; /* Added padding to bottom for better spacing on mobile */
+}
+
+#footer p {
+    background-color: rgb(63, 63, 63); 
+    color: white;
+    text-align: center;
+    font-size: 18px; /* Slightly smaller font for mobile */
+    padding: 10px; /* Added padding for better spacing */
+}
+
+#footer .footerbox {
+    height: auto; /* Set to auto for better height control */
+    width: 100%;
+    background-image: url('/image/footer3.jpg');
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Changed to center for better alignment on small screens */
+    flex-direction: row; /* Changed to column layout for mobile */
+    padding: 20px; /* Added padding for better spacing */
+    gap: 20px;
+}
+
+#footer .footerbox .board {
+    height: auto; /* Set to auto for better height control */
+    width: 90%; /* Increased width to fill more space on mobile */
+    background-color: rgba(156, 156, 156, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px 10px; /* Adjusted padding for better spacing */
+    margin-bottom: 20px; /* Added margin to separate boards on mobile */
+}
+
+#footer .footerbox .board h1 {
+    font-size: 28px; /* Reduced font size for better fit */
+    margin-bottom: 20px;
+}
+
+#footer .footerbox .board h2 {
+    font-size: 18px; /* Reduced font size for better fit */
+    margin-bottom: 10px;
+}
+
+#footer .footerbox .links {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    flex-wrap: wrap; /* Added wrap to handle multiple links better */
+    background-color: transparent;
+}
+
+#footer .footerbox .links h2 {
+    font-size: 20px; /* Slightly smaller font for mobile */
+}
+
+#footer .footerbox .links h2:hover{
+    cursor: pointer;
+}
+
+/* Media query for small screens */
+@media (max-width: 768px) {
+    #footer .footerbox {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items */
+    }
+
+    #footer .footerbox .board {
+        width: 100%; /* Make the boards take full width */
+    }
+
+    #footer p {
+        font-size: 16px; /* Further reduce font size for very small screens */
+    }
+
+    #footer .footerbox .board h1 {
+        font-size: 24px; /* Further reduce font size */
+    }
+
+    #footer .footerbox .board h2 {
+        font-size: 16px; /* Further reduce font size */
+    }
+}

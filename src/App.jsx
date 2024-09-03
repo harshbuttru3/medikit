@@ -5,7 +5,8 @@ import Landing from './components/Landing';
 import Navbar from './components/Navbar';
 import Login from './components/Login';
 import Integration from './components/Integration';
-import Dashboard from './components/Dashboard';
+import Highlights from './components/Highlights';
+import Footer from './components/Footer';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -16,7 +17,8 @@ function App() {
       <Navbar/>
       <Landing/>
       <Integration/>
-      <Dashboard/>
+      <Highlights/>
+      <Footer/>
       </>
     },
     {

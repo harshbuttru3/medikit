@@ -1,13 +1,13 @@
 import React from 'react'
-import './Dashboard.css'
+import './Highlights.css'
 import FontAwesomeIcon from 'react-fontawesome'
 
-function Dashboard() {
+function Highlights() {
   return (
-    <div id='dashboard'>
-        <div className="dashboardbg">
+    <div id='Highlights'>
+        <div className="Highlightsbg">
             <h1><span>HIGHLIGHTS</span></h1>
-            <div className="dashboardcontent">
+            <div className="Highlightscontent">
                 <div className="dash">
                     Number of Regsiter on our site <br />: 999+
                 </div>
@@ -26,4 +26,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default Highlights

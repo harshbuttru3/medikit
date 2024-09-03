@@ -42,7 +42,7 @@ function Navbar() {
     <>
       <header ref={navRef}>
         <nav >
-          <i className="fa-solid fa-kit-medical" style={{color: "#0be545", fontSize: "1vw", marginRight: "40px"}}></i>
+          <i className="fa-solid fa-kit-medical" style={{color: "#0be545", fontSize: "17px"}}></i>
           <NavLink to="/" className='navlink' activeClassName="active">HOME</NavLink>
           <NavLink to="/discover" className='navlink' activeClassName="active">DISCOVER</NavLink>
           <NavLink to="/dashboard" className='navlink' activeClassName="active">DASHBOARD</NavLink>

@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+// import Mouse from './components/Mouse';
 import Landing from './components/Landing';
 import Navbar from './components/Navbar';
 import Login from './components/Login';

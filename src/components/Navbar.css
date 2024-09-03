@@ -5,8 +5,9 @@ nav{
     height: 50px;
     display: flex;
     align-items: center;
-    position: relative;
+    /* position: relative; */
     z-index: 100;
+    /* position: -webkit-sticky; */
    
     
 }
@@ -39,3 +40,10 @@ header #login:hover{
     transition: all ease 0.8s;
     font-weight: 800;
 }
+header{
+    position: sticky;
+    top: 0px;
+    z-index: 10000;
+    /* background: grey; */
+}
+

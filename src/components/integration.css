@@ -1,104 +1,60 @@
-#pageb{
-    width: 100vw;
-    height: 70vh;
-    background-color: rgb(255, 10, 10);
-    color: white;
-}
-
-#pageb #integration{
-    height: 100%;
+.page5 {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    position: relative;
-}
-
-#pageb #integration #image{
-    height: 100%;
-    width: 30%;
-    background-color: rgb(79, 21, 255);
-}
-
-#pageb #integration #connection{
-    background-color: aliceblue;
-    height: 100%;
-    width: 70%;
+    height: 80vh;
+    background-color: whitesmoke;
     color: black;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    padding: 20px;
+    box-sizing: border-box; /* Ensures padding doesn't affect total width/height */
 }
 
-#pageb #integration #connection h1{
-    font-size: 2.2vw;
-    margin-bottom: 1%;
+.page5 h2 {
+    font-size: 4vw;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 30px;
     text-align: center;
 }
 
-#pageb #integration #connection h1 .changing{
-    color: #0be545;
+.box {
+    width: 90%; /* Adjust width to be responsive */ /* Add a max-width for larger screens */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    padding: 0 20px;
+    border-top: 2px solid #dadada;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Adds spacing between boxes */
+    font-size: 15px;
 }
 
-#pageb #integration #connection ul{
-    font-size: 1.5vw;
-}
-
-#pageb #integration #connection #learn{
-    font-size: 2vw;
-    margin-top: 3%;
-    padding: 1% 3%;
-    border-radius: 30px;
-    background-color: transparent;
-}
-
-#pageb #integration #connection #learn:hover{
-    background-color: #0be545;
-    color: white;
-    border: none;
-    transition: all ease 0.5s;
-}
-
-#pageb #integration #connection #feature{
-    margin-top: 3%;
-}
-
-#OPD{
-    color: rgb(30, 145, 221);
-    font-weight: 600;
-}
-
-#Bed{
-    font-weight: 600;
-    color: blueviolet;
-}
-
-#Ambulance{
-    font-weight: 600;
-    color: #e50bb6;
-}
-
-#Blood{
-    font-weight: 600;
-    color: red;
-}
-
-#Government{
-    font-weight: 600;
-    color: #0011ff;
-}
-
-#preg{
-    font-weight: 600;
-    color: rgb(224, 76, 101);
-}
-
-#tracking{
-    font-weight: 600;
-    color: #0be545;
-}
-
-hr{
-    height: 3px;
+.box:hover{
     background-color: black;
+    color: white;
+    transition: all ease-in-out 0.4s;
 }
 
-#medikit{
-    color: #e5120b;
+
+.box:nth-last-child(1) {
+    border-bottom: 2px solid #dadada;
+}
+
+@media (max-width: 768px) {
+    .page5 {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .box {
+        width: 100%; /* Full width on smaller screens */
+        padding: 0 10px; /* Less padding on smaller screens */
+    }
+
+    .page5 h2 {
+        font-size: 6vw; /* Adjust heading size on smaller screens */
+    }
 }

@@ -13,6 +13,14 @@ class Landing extends Component {
 
     this.timeRunning = 2000;
     this.timeAutoNext = 7000;
+
+    // Titles and images array
+    this.items = [
+      { title: "OPD's", img: 'opd.jpg' },
+      { title: "Blood", img: 'blood2.jpg' },
+      { title: "Ambulance", img: 'ambulance.jpg' },
+      { title: "Bed", img: 'bed.png' }
+    ];
   }
 
   componentDidMount() {
@@ -22,11 +30,6 @@ class Landing extends Component {
     const carouselDom = this.carouselRef.current;
     const sliderDom = this.sliderRef.current;
     const thumbnailBorderDom = this.thumbnailBorderRef.current;
-    const timeDom = this.timeRef.current;
-
-    // Append first thumbnail item to the end
-    const thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
-    thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
 
     // Auto-next functionality
     let runTimeOut;
@@ -38,13 +41,14 @@ class Landing extends Component {
       const sliderItemsDom = sliderDom.querySelectorAll('.item');
       const thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
 
+      // Move both slider and thumbnail items together
       if (type === 'next') {
-        sliderDom.appendChild(sliderItemsDom[0]);
-        thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
+        sliderDom.appendChild(sliderItemsDom[0]); // Move first to last in slider
+        thumbnailBorderDom.appendChild(thumbnailItemsDom[0]); // Move first to last in thumbnails
         carouselDom.classList.add('next');
       } else {
-        sliderDom.prepend(sliderItemsDom[sliderItemsDom.length - 1]);
-        thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
+        sliderDom.prepend(sliderItemsDom[sliderItemsDom.length - 1]); // Move last to first in slider
+        thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]); // Move last to first in thumbnails
         carouselDom.classList.add('prev');
       }
 
@@ -76,12 +80,12 @@ class Landing extends Component {
         <div className="carousel" ref={this.carouselRef}>
           <div className="list" ref={this.sliderRef}>
             {/* Carousel items */}
-            {['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg'].map((img, index) => (
+            {this.items.map((item, index) => (
               <div className="item" key={index}>
-                <img src={`/src/components/image/${img}`} alt={`Slide ${index + 1}`}></img>
+                <img src={`/image/${item.img}`} alt={`Slide ${index + 1}`}></img>
                 <div className="content">
                   <div className="author">MEDIKIT</div>
-                  <div className="title">TITLE {index + 1}</div>
+                  <div className="title">{item.title}</div>
                   <div className="topic">SERVICES</div>
                   <div className="des">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat in omnis sit facilis nobis a iusto maiores, rem sunt, quisquam molestiae!
@@ -96,11 +100,11 @@ class Landing extends Component {
 
           <div className="thumbnail" ref={this.thumbnailBorderRef}>
             {/* Thumbnail items */}
-            {['img1.jpg', 'img2.jpg', 'img3.jpg', 'img4.jpg'].map((img, index) => (
+            {this.items.map((item, index) => (
               <div className="item" key={index}>
-                <img src={`/src/components/image/${img}`} alt={`Thumbnail ${index + 1}`} />
+                <img src={`/image/${item.img}`} alt={`Thumbnail ${index + 1}`} />
                 <div className="content">
-                  <div className="title">TITLE {index + 1}</div>
+                  <div className="title">{item.title}</div>
                   <div className="description">Description</div>
                 </div>
               </div>
@@ -108,8 +112,8 @@ class Landing extends Component {
           </div>
 
           <div className="arrows">
-            <button id="prev" ref={this.prevRef}><i class="fa-solid fa-angle-left"></i></button>
-            <button id="next" ref={this.nextRef}><i class="fa-solid fa-angle-right"></i></button>
+            <button id="prev" ref={this.prevRef}><i className="fa-solid fa-angle-left"></i></button>
+            <button id="next" ref={this.nextRef}><i className="fa-solid fa-angle-right"></i></button>
           </div>
 
           <div className="time" ref={this.timeRef}></div>

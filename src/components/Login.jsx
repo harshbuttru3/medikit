@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css'; // Ensure you have the appropriate CSS in Login.css
+import GoogleSignIn from './Google';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -25,9 +26,7 @@ const Login = () => {
   <div id="login" className="form-container">
     <h2>Login</h2>
         <div className="button">
-          <button type="button">
-            <i className="fa-brands fa-google"></i> Google
-          </button>
+          <GoogleSignIn> <i className="fa-brands fa-google"></i> Google</GoogleSignIn>
           <button type="button">
             <i className="fa-solid fa-mobile-screen-button"></i> Phone
           </button>

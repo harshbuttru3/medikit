@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Integration from './components/Integration';
 import Highlights from './components/Highlights';
 import Footer from './components/Footer';
+import Homepage from './components/Homepage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -24,6 +25,10 @@ function App() {
     {
       path: "/login",
       element: <Login/>
+    },
+    {
+      path: "/homepage",
+      element: <Homepage/>
     }
   ]);
 

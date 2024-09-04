@@ -8,6 +8,7 @@ import Integration from './components/Integration';
 import Highlights from './components/Highlights';
 import Footer from './components/Footer';
 import Homepage from './components/Homepage';
+import PhoneSignIn from './components/Phone';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
     {
       path: "/homepage",
       element: <Homepage/>
+    },
+    {
+      path: "/phoneSignin",
+      element: <PhoneSignIn/>
     }
   ]);
 

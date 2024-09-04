@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css'; // Ensure you have the appropriate CSS in Login.css
 import GoogleSignIn from './Google';
+import PhoneSignIn from './Phone';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import '@fortawesome/fontawesome-free/css/all.min.css';
 

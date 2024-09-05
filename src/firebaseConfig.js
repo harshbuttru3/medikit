@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -23,4 +24,7 @@ const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
 // Initialize Firebase Authentication and export it
 const auth = getAuth(app);
 
-export { auth, RecaptchaVerifier, signInWithPhoneNumber };
+//Initialize firestore database
+const db = getFirestore(app);
+
+export { auth, RecaptchaVerifier, signInWithPhoneNumber, db };

@@ -1,33 +1,266 @@
-import React from "react";
-import './Profilesetup.css'
+import React, { useState } from "react";
+import './Profilesetup.css';
+import { addDoc, collection } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 function Profilesetup() {
+  // Form state management
+  const [formData, setFormData] = useState({
+    relation: "",
+    initial: "",
+    fullName: "",
+    gender: "",
+    dobDay: "",
+    dobMonth: "",
+    dobYear: "",
+    mobile: "",
+    email: "",
+    address: "",
+    state: "",
+    district: ""
+  });
+
+  // Define states and their respective districts
+  const stateDistricts = {
+    AndhraPradesh: [
+      "Anantapur", "Chittoor", "East Godavari", "Guntur", "Kadapa", "Krishna", 
+      "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", 
+      "West Godavari", "Annamayya", "Sri Balaji", "Kakinada", "Palnadu", "Nandyal", "NTR", "Sri Potti Sriramulu", "Bapatla", "Parvathipuram Manyam", "Konaseema", "Alluri Sitharama Raju"
+    ],
+    ArunachalPradesh: [
+      "Tawang", "West Kameng", "East Kameng", "Papum Pare", "Kurung Kumey", "Kra Daadi", 
+      "Lower Subansiri", "Upper Subansiri", "West Siang", "East Siang", "Siang", 
+      "Upper Siang", "Lower Siang", "Lower Dibang Valley", "Dibang Valley", "Anjaw", 
+      "Lohit", "Namsai", "Changlang", "Tirap", "Longding", "Pakke Kessang", 
+      "Kamle", "Leparada", "Shi Yomi", "Lepa Rada"
+    ],
+    Assam: [
+      "Baksa", "Barpeta", "Biswanath", "Bongaigaon", "Cachar", "Charaideo", "Chirang", 
+      "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Goalpara", "Golaghat", "Hailakandi", 
+      "Hojai", "Jorhat", "Kamrup", "Kamrup Metropolitan", "Karbi Anglong", 
+      "Karimganj", "Kokrajhar", "Lakhimpur", "Majuli", "Morigaon", "Nagaon", 
+      "Nalbari", "Sivasagar", "Sonitpur", "South Salmara-Mankachar", "Tinsukia", "Udalguri", "West Karbi Anglong"
+    ],
+    Bihar: [
+      "Araria", "Arwal", "Aurangabad", "Banka", "Begusarai", "Bhagalpur", "Bhojpur", 
+      "Buxar", "Darbhanga", "East Champaran", "Gaya", "Gopalganj", "Jamui", 
+      "Jehanabad", "Kaimur", "Katihar", "Khagaria", "Kishanganj", "Lakhisarai", 
+      "Madhepura", "Madhubani", "Munger", "Muzaffarpur", "Nalanda", "Nawada", 
+      "Patna", "Purnia", "Rohtas", "Saharsa", "Samastipur", "Saran", "Sheikhpura", 
+      "Sheohar", "Sitamarhi", "Siwan", "Supaul", "Vaishali", "West Champaran"
+    ],
+    Chhattisgarh: [
+      "Balod", "Baloda Bazar", "Balrampur", "Bastar", "Bemetara", "Bijapur", 
+      "Bilaspur", "Dantewada", "Dhamtari", "Durg", "Gariaband", "Gaurela-Pendra-Marwahi", 
+      "Janjgir-Champa", "Jashpur", "Kabirdham", "Kanker", "Kondagaon", "Korba", 
+      "Koriya", "Mahasamund", "Mungeli", "Narayanpur", "Raigarh", "Raipur", 
+      "Rajnandgaon", "Sukma", "Surajpur", "Surguja"
+    ],
+    Goa: [
+      "North Goa", "South Goa"
+    ],
+    Gujarat: [
+      "Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha", "Bharuch", 
+      "Bhavnagar", "Botad", "Chhota Udaipur", "Dahod", "Dang", "Devbhoomi Dwarka", 
+      "Gandhinagar", "Gir Somnath", "Jamnagar", "Junagadh", "Kheda", "Kutch", 
+      "Mahisagar", "Mehsana", "Morbi", "Narmada", "Navsari", "Panchmahal", 
+      "Patan", "Porbandar", "Rajkot", "Sabarkantha", "Surat", "Surendranagar", 
+      "Tapi", "Vadodara", "Valsad"
+    ],
+    Haryana: [
+      "Ambala", "Bhiwani", "Charkhi Dadri", "Faridabad", "Fatehabad", "Gurugram", 
+      "Hisar", "Jhajjar", "Jind", "Kaithal", "Karnal", "Kurukshetra", "Mahendragarh", 
+      "Nuh", "Palwal", "Panchkula", "Panipat", "Rewari", "Rohtak", "Sirsa", 
+      "Sonipat", "Yamunanagar"
+    ],
+    HimachalPradesh: [
+      "Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kinnaur", "Kullu", 
+      "Lahaul and Spiti", "Mandi", "Shimla", "Sirmaur", "Solan", "Una"
+    ],
+    Jharkhand: [
+      "Bokaro", "Chatra", "Deoghar", "Dhanbad", "Dumka", "East Singhbhum", 
+      "Garhwa", "Giridih", "Godda", "Gumla", "Hazaribagh", "Jamtara", 
+      "Khunti", "Koderma", "Latehar", "Lohardaga", "Pakur", "Palamu", 
+      "Ramgarh", "Ranchi", "Sahebganj", "Seraikela Kharsawan", "Simdega", "West Singhbhum"
+    ],
+    Karnataka: [
+      "Bagalkot", "Bangalore", "Bangalore Rural", "Belgaum", "Bellary", "Bidar", 
+      "Chamarajanagar", "Chikkaballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", 
+      "Davanagere", "Dharwad", "Gadag", "Gulbarga", "Hassan", "Haveri", "Kodagu", 
+      "Kolar", "Koppal", "Mandya", "Mysore", "Raichur", "Ramanagara", "Shimoga", 
+      "Tumkur", "Udupi", "Uttara Kannada", "Vijayapura", "Yadgir"
+    ],
+    Kerala: [
+      "Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", 
+      "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", 
+      "Thiruvananthapuram", "Thrissur", "Wayanad"
+    ],
+    MadhyaPradesh: [
+      "Agar Malwa", "Alirajpur", "Anuppur", "Ashoknagar", "Balaghat", "Barwani", 
+      "Betul", "Bhind", "Bhopal", "Burhanpur", "Chhatarpur", "Chhindwara", 
+      "Damoh", "Datia", "Dewas", "Dhar", "Dindori", "Guna", "Gwalior", "Harda", 
+      "Hoshangabad", "Indore", "Jabalpur", "Jhabua", "Katni", "Khandwa", "Khargone", 
+      "Mandla", "Mandsaur", "Morena", "Narsinghpur", "Neemuch", "Niwari", 
+      "Panna", "Raisen", "Rajgarh", "Ratlam", "Rewa", "Sagar", "Satna", 
+      "Sehore", "Seoni", "Shahdol", "Shajapur", "Sheopur", "Shivpuri", 
+      "Sidhi", "Singrauli", "Tikamgarh", "Ujjain", "Umaria", "Vidisha"
+    ],
+    Maharashtra: [
+      "Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara", 
+      "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli", 
+      "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai", "Nagpur", "Nanded", 
+      "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani", "Pune", 
+      "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg", "Solapur", 
+      "Thane", "Wardha", "Washim", "Yavatmal"
+    ],
+    Manipur: [
+      "Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West", "Jiribam", 
+      "Kakching", "Kamjong", "Kangpokpi", "Noney", "Pherzawl", "Senapati", 
+      "Tamenglong", "Tengnoupal", "Thoubal", "Ukhrul"
+    ],
+    Meghalaya: [
+      "East Garo Hills", "East Jaintia Hills", "East Khasi Hills", "North Garo Hills", 
+      "Ri Bhoi", "South Garo Hills", "South West Garo Hills", "South West Khasi Hills", 
+      "West Garo Hills", "West Jaintia Hills", "West Khasi Hills"
+    ],
+    Mizoram: [
+      "Aizawl", "Champhai", "Hnahthial", "Khawzawl", "Kolasib", "Lawngtlai", 
+      "Lunglei", "Mamit", "Saiha", "Serchhip", "Saitual"
+    ],
+    Nagaland: [
+      "Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung", "Mon", "Noklak", 
+      "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto"
+    ],
+    Odisha: [
+      "Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak", "Boudh", "Cuttack", 
+      "Debagarh", "Dhenkanal", "Gajapati", "Ganjam", "Jagatsinghapur", "Jajpur", 
+      "Jharsuguda", "Kalahandi", "Kandhamal", "Kendrapara", "Kendujhar", "Khordha", 
+      "Koraput", "Malkangiri", "Mayurbhanj", "Nabarangpur", "Nayagarh", "Nuapada", 
+      "Puri", "Rayagada", "Sambalpur", "Subarnapur", "Sundergarh"
+    ],
+    Punjab: [
+      "Amritsar", "Barnala", "Bathinda", "Faridkot", "Fatehgarh Sahib", "Fazilka", 
+      "Ferozepur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "Kapurthala", "Ludhiana", 
+      "Mansa", "Moga", "Muktsar", "Nawanshahr", "Pathankot", "Patiala", "Rupnagar", 
+      "Sangrur", "SAS Nagar", "Tarn Taran"
+    ],
+    Rajasthan: [
+      "Ajmer", "Alwar", "Banswara", "Baran", "Barmer", "Bharatpur", "Bhilwara", 
+      "Bikaner", "Bundi", "Chittorgarh", "Churu", "Dausa", "Dholpur", "Dungarpur", 
+      "Hanumangarh", "Jaipur", "Jaisalmer", "Jalore", "Jhalawar", "Jhunjhunu", 
+      "Jodhpur", "Karauli", "Kota", "Nagaur", "Pali", "Pratapgarh", "Rajsamand", 
+      "Sawai Madhopur", "Sikar", "Sirohi", "Sri Ganganagar", "Tonk", "Udaipur"
+    ],
+    Sikkim: [
+      "East Sikkim", "North Sikkim", "South Sikkim", "West Sikkim"
+    ],
+    TamilNadu: [
+      "Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", 
+      "Dindigul", "Erode", "Kallakurichi", "Kanchipuram", "Kanyakumari", "Karur", 
+      "Krishnagiri", "Madurai", "Mayiladuthurai", "Nagapattinam", "Namakkal", 
+      "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Ranipet", 
+      "Salem", "Sivaganga", "Tenkasi", "Thanjavur", "Theni", "Thiruvallur", 
+      "Thiruvarur", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", "Tirupathur", 
+      "Tiruppur", "Tiruvannamalai", "Vellore", "Viluppuram", "Virudhunagar"
+    ],
+    Telangana: [
+      "Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial", "Jangaon", 
+      "Jayashankar Bhupalpally", "Jogulamba Gadwal", "Kamareddy", "Karimnagar", 
+      "Khammam", "Kumuram Bheem", "Mahabubabad", "Mahbubnagar", "Mancherial", 
+      "Medak", "Medchal–Malkajgiri", "Mulugu", "Nagarkurnool", "Nalgonda", 
+      "Narayanpet", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna Sircilla", 
+      "Rangareddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", 
+      "Warangal Rural", "Warangal Urban", "Yadadri Bhuvanagiri"
+    ],
+    Tripura: [
+      "Dhalai", "Gomati", "Khowai", "North Tripura", "Sepahijala", "South Tripura", 
+      "Unakoti", "West Tripura"
+    ],
+    UttarPradesh: [
+      "Agra", "Aligarh", "Ambedkar Nagar", "Amethi", "Amroha", "Auraiya", 
+      "Ayodhya", "Azamgarh", "Baghpat", "Bahraich", "Ballia", "Balrampur", 
+      "Banda", "Barabanki", "Bareilly", "Basti", "Bhadohi", "Bijnor", "Budaun", 
+      "Bulandshahr", "Chandauli", "Chitrakoot", "Deoria", "Etah", "Etawah", 
+      "Farrukhabad", "Fatehpur", "Firozabad", "Gautam Buddh Nagar", "Ghaziabad", 
+      "Ghazipur", "Gonda", "Gorakhpur", "Hamirpur", "Hapur", "Hardoi", "Hathras", 
+      "Jalaun", "Jaunpur", "Jhansi", "Kannauj", "Kanpur Dehat", "Kanpur Nagar", 
+      "Kasganj", "Kaushambi", "Kushinagar", "Lakhimpur Kheri", "Lalitpur", 
+      "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Mau", 
+      "Meerut", "Mirzapur", "Moradabad", "Muzaffarnagar", "Pilibhit", "Pratapgarh", 
+      "Prayagraj", "Raebareli", "Rampur", "Saharanpur", "Sambhal", "Sant Kabir Nagar", 
+      "Shahjahanpur", "Shamli", "Shravasti", "Siddharthnagar", "Sitapur", "Sonbhadra", 
+      "Sultanpur", "Unnao", "Varanasi"
+    ],
+    Uttarakhand: [
+      "Almora", "Bageshwar", "Chamoli", "Champawat", "Dehradun", "Haridwar", 
+      "Nainital", "Pauri Garhwal", "Pithoragarh", "Rudraprayag", "Tehri Garhwal", 
+      "Udham Singh Nagar", "Uttarkashi"
+    ],
+    WestBengal: [
+      "Alipurduar", "Bankura", "Birbhum", "Cooch Behar", "Dakshin Dinajpur", 
+      "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Jhargram", "Kalimpong", 
+      "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas", 
+      "Paschim Bardhaman", "Paschim Medinipur", "Purba Bardhaman", "Purba Medinipur", 
+      "Purulia", "South 24 Parganas", "Uttar Dinajpur"
+    ],
+  };
+  
+
+  const states = Object.keys(stateDistricts);
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  
+  // Handle input changes
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+    
+    // Reset district if state changes
+    if (id === "state") {
+      setFormData((prevData) => ({
+        ...prevData,
+        district: "", // Clear district when state changes
+      }));
+    }
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Add a new document with form data to Firestore
+      await addDoc(collection(db, "profiles"), formData);
+      alert("Profile successfully saved!");
+    } catch (error) {
+      console.error("Error saving profile: ", error);
+    }
+  };
+
   return (
     <div id="Profilesetup">
-      <div class="form-container">
-        <div class="form-header">
+      <div className="form-container">
+        <div className="form-header">
           <h2>Setup your Profile</h2>
         </div>
-        <form>
-          <div class="row">
-            <div class="input-group">
-              <label for="relation">Relation</label>
-              <select id="relation" required>
-                <option value="" disabled selected>
-                  Select
-                </option>
-                <option value="Mr.">Self</option>
+        <form onSubmit={handleSubmit}>
+          <div className="row">
+            <div className="input-group">
+              <label htmlFor="relation">Relation</label>
+              <select id="relation" value={formData.relation} onChange={handleChange} required>
+                <option value="" disabled>Select</option>
+                <option value="Self">Self</option>
                 <option value="Father">Father</option>
                 <option value="Mother">Mother</option>
                 <option value="Other">Other</option>
               </select>
             </div>
-            <div class="input-group">
-              <label for="initial">Initial</label>
-              <select id="initial" required>
-                <option value="" disabled selected>
-                  Select
-                </option>
+            <div className="input-group">
+              <label htmlFor="initial">Initial</label>
+              <select id="initial" value={formData.initial} onChange={handleChange} required>
+                <option value="" disabled>Select</option>
                 <option value="Mr.">Mr.</option>
                 <option value="Ms.">Ms.</option>
                 <option value="Mrs.">Mrs.</option>
@@ -35,17 +268,15 @@ function Profilesetup() {
             </div>
           </div>
 
-          <div class="row">
-            <div class="input-group">
-              <label for="first-name">Full Name</label>
-              <input type="text" id="first-name" required />
+          <div className="row">
+            <div className="input-group">
+              <label htmlFor="fullName">Full Name</label>
+              <input type="text" id="fullName" value={formData.fullName} onChange={handleChange} required />
             </div>
-            <div class="input-group">
-              <label for="gender">Gender</label>
-              <select id="gender" required>
-                <option value="" disabled selected>
-                  Select
-                </option>
+            <div className="input-group">
+              <label htmlFor="gender">Gender</label>
+              <select id="gender" value={formData.gender} onChange={handleChange} required>
+                <option value="" disabled>Select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -53,52 +284,20 @@ function Profilesetup() {
             </div>
           </div>
 
-          <div class="row">
-            <div class="input-group">
-              <label for="dob-day">Date of Birth (Day)</label>
-              <select id="dob-day" required>
-                <option value="" disabled selected>
-                  Day
-                </option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-                <option value="24">24</option>
-                <option value="25">25</option>
-                <option value="26">26</option>
-                <option value="27">27</option>
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-                <option value="31">31</option>
+          <div className="row">
+            <div className="input-group">
+              <label htmlFor="dobDay">Date of Birth (Day)</label>
+              <select id="dobDay" value={formData.dobDay} onChange={handleChange} required>
+                <option value="" disabled>Day</option>
+                {days.map((day) => (
+                  <option key={day} value={day}>{day}</option>
+                ))}
               </select>
             </div>
-            <div class="input-group">
-              <label for="dob-month">Month</label>
-              <select id="dob-month" required>
-                <option value="" disabled selected>
-                  Month
-                </option>
+            <div className="input-group">
+              <label htmlFor="dobMonth">Month</label>
+              <select id="dobMonth" value={formData.dobMonth} onChange={handleChange} required>
+                <option value="" disabled>Month</option>
                 <option value="January">January</option>
                 <option value="February">February</option>
                 <option value="March">March</option>
@@ -113,221 +312,67 @@ function Profilesetup() {
                 <option value="December">December</option>
               </select>
             </div>
-            <div class="input-group">
-              <label for="dob-year">Year</label>
-              <select id="dob-year" required>
-                <option value="" disabled selected>
-                  Year
-                </option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-                <option value="2020">2020</option>
-                <option value="2019">2019</option>
-                <option value="2018">2018</option>
-                <option value="2017">2017</option>
-                <option value="2016">2016</option>
-                <option value="2015">2015</option>
-                <option value="2014">2014</option>
-                <option value="2013">2013</option>
-                <option value="2012">2012</option>
-                <option value="2011">2011</option>
-                <option value="2010">2010</option>
-                <option value="2009">2009</option>
-                <option value="2008">2008</option>
-                <option value="2007">2007</option>
-                <option value="2006">2006</option>
-                <option value="2005">2005</option>
-                <option value="2004">2004</option>
-                <option value="2003">2003</option>
-                <option value="2002">2002</option>
-                <option value="2001">2001</option>
-                <option value="2000">2000</option>
-                <option value="1999">1999</option>
-                <option value="1998">1998</option>
-                <option value="1997">1997</option>
-                <option value="1996">1996</option>
-                <option value="1995">1995</option>
-                <option value="1994">1994</option>
-                <option value="1993">1993</option>
-                <option value="1992">1992</option>
-                <option value="1991">1991</option>
-                <option value="1990">1990</option>
-                <option value="1989">1989</option>
-                <option value="1988">1988</option>
-                <option value="1987">1987</option>
-                <option value="1986">1986</option>
-                <option value="1985">1985</option>
-                <option value="1984">1984</option>
-                <option value="1983">1983</option>
-                <option value="1982">1982</option>
-                <option value="1981">1981</option>
-                <option value="1980">1980</option>
-                <option value="1979">1979</option>
-                <option value="1978">1978</option>
-                <option value="1977">1977</option>
-                <option value="1976">1976</option>
-                <option value="1975">1975</option>
-                <option value="1974">1974</option>
-                <option value="1973">1973</option>
-                <option value="1972">1972</option>
-                <option value="1971">1971</option>
-                <option value="1970">1970</option>
-                <option value="1969">1969</option>
-                <option value="1968">1968</option>
-                <option value="1967">1967</option>
-                <option value="1966">1966</option>
-                <option value="1965">1965</option>
-                <option value="1964">1964</option>
-                <option value="1963">1963</option>
-                <option value="1962">1962</option>
-                <option value="1961">1961</option>
-                <option value="1960">1960</option>
-                <option value="1959">1959</option>
-                <option value="1958">1958</option>
-                <option value="1957">1957</option>
-                <option value="1956">1956</option>
-                <option value="1955">1955</option>
-                <option value="1954">1954</option>
-                <option value="1953">1953</option>
-                <option value="1952">1952</option>
-                <option value="1951">1951</option>
-                <option value="1950">1950</option>
-                <option value="1949">1949</option>
-                <option value="1948">1948</option>
-                <option value="1947">1947</option>
-                <option value="1946">1946</option>
-                <option value="1945">1945</option>
-                <option value="1944">1944</option>
-                <option value="1943">1943</option>
-                <option value="1942">1942</option>
-                <option value="1941">1941</option>
-                <option value="1940">1940</option>
-                <option value="1939">1939</option>
-                <option value="1938">1938</option>
-                <option value="1937">1937</option>
-                <option value="1936">1936</option>
-                <option value="1935">1935</option>
-                <option value="1934">1934</option>
-                <option value="1933">1933</option>
-                <option value="1932">1932</option>
-                <option value="1931">1931</option>
-                <option value="1930">1930</option>
+            <div className="input-group">
+              <label htmlFor="dobYear">Year</label>
+              <select id="dobYear" value={formData.dobYear} onChange={handleChange} required>
+                <option value="" disabled>Year</option>
+                {Array.from({ length: 100 }, (_, i) => 2024 - i).map((year) => (
+                  <option key={year} value={year}>{year}</option>
+                ))}
               </select>
             </div>
           </div>
 
-          <div class="row">
-            <div class="input-group">
-              <label for="mobile">Mobile No</label>
-              <input type="text" id="mobile" required />
+          <div className="row">
+            <div className="input-group">
+              <label htmlFor="mobile">Mobile No</label>
+              <input type="text" id="mobile" value={formData.mobile} onChange={handleChange} required />
             </div>
-            <div class="input-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" />
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-group">
-              <label for="address">Address</label>
-              <input type="text" id="address" required />
-            </div>
-            <div class="input-group">
-              <label for="country">Country</label>
-              <input type="text" id="country" value="India" readonly />
+            <div className="input-group">
+              <label htmlFor="email">Email</label>
+              <input type="email" id="email" value={formData.email} onChange={handleChange} required />
             </div>
           </div>
 
-          <div class="row">
-            <div class="input-group">
-              <label for="state">State</label>
-              <select id="state" required>
-                <option value="" disabled selected>
-                  Select State
-                </option>
-                <option value="Other">Bihar</option>
+          <div className="row">
+            <div className="input-group">
+              <label htmlFor="address">Address</label>
+              <input type="text" id="address" value={formData.address} onChange={handleChange} required />
+            </div>
+            <div className="input-group">
+              <label htmlFor="country">Country</label>
+              <input type="text" id="country" value="India" readOnly />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="input-group">
+              <label htmlFor="state">State</label>
+              <select id="state" value={formData.state} onChange={handleChange} required>
+                <option value="" disabled>Select State</option>
+                {states.map((state) => (
+                  <option key={state} value={state}>{state}</option>
+                ))}
               </select>
             </div>
-            <div class="input-group">
-              <label for="district">District</label>
-              <select id="district" required>
-                <option value="" disabled selected>
-                  Select District
-                </option>
-                <option value="Araria">Araria</option>
-                <option value="Arwal">Arwal</option>
-                <option value="Aurangabad">Aurangabad</option>
-                <option value="Banka">Banka</option>
-                <option value="Begusarai">Begusarai</option>
-                <option value="Bhagalpur">Bhagalpur</option>
-                <option value="Bhojpur">Bhojpur</option>
-                <option value="Buxar">Buxar</option>
-                <option value="Darbhanga">Darbhanga</option>
-                <option value="East Champaran">East Champaran</option>
-                <option value="Gaya">Gaya</option>
-                <option value="Gopalganj">Gopalganj</option>
-                <option value="Jamui">Jamui</option>
-                <option value="Jehanabad">Jehanabad</option>
-                <option value="Kaimur">Kaimur</option>
-                <option value="Katihar">Katihar</option>
-                <option value="Khagaria">Khagaria</option>
-                <option value="Kishanganj">Kishanganj</option>
-                <option value="Lakhisarai">Lakhisarai</option>
-                <option value="Madhepura">Madhepura</option>
-                <option value="Madhubani">Madhubani</option>
-                <option value="Munger">Munger</option>
-                <option value="Muzaffarpur">Muzaffarpur</option>
-                <option value="Nalanda">Nalanda</option>
-                <option value="Nawada">Nawada</option>
-                <option value="Patna">Patna</option>
-                <option value="Purnia">Purnia</option>
-                <option value="Rohtas">Rohtas</option>
-                <option value="Saharsa">Saharsa</option>
-                <option value="Samastipur">Samastipur</option>
-                <option value="Saran">Saran</option>
-                <option value="Sheikhpura">Sheikhpura</option>
-                <option value="Sheohar">Sheohar</option>
-                <option value="Sitamarhi">Sitamarhi</option>
-                <option value="Siwan">Siwan</option>
-                <option value="Supaul">Supaul</option>
-                <option value="Vaishali">Vaishali</option>
-                <option value="West Champaran">West Champaran</option>
+            <div className="input-group">
+              <label htmlFor="district">District</label>
+              <select id="district" value={formData.district} onChange={handleChange} required>
+                <option value="" disabled>Select District</option>
+                {formData.state && stateDistricts[formData.state]?.map((district) => (
+                  <option key={district} value={district}>{district}</option>
+                ))}
               </select>
             </div>
           </div>
 
-          <div class="row">
-            <button type="submit" class="submit-btn" disabled>
+          <div className="row">
+            <button type="submit" className="submit-btn">
               Submit
             </button>
           </div>
         </form>
       </div>
-
-      {/* <script>
-      // Select necessary elements
-      const form = document.querySelector('form');
-      const submitButton = document.querySelector('.submit-btn');
-      
-      // Function to check if all required fields are filled
-      function checkFormValidity() {
-        // Check if all form elements are valid (including those with 'required' attribute)
-        const isFormValid = form.checkValidity();
-        
-        // Enable or disable the submit button based on form validity
-        submitButton.disabled = !isFormValid;
-      }
-    
-      // Add input event listeners to all required form elements to trigger the checkFormValidity function
-      form.querySelectorAll('input[required], select[required]').forEach(input => {
-        input.addEventListener('input', checkFormValidity);
-      });
-    
-      // Call the function once on page load to set initial button state
-      window.onload = checkFormValidity;
-    </script> */}
     </div>
   );
 }

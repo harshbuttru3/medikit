@@ -1,12 +1,9 @@
-// Import the functions you need from the SDKs you need
+// Import the necessary functions from Firebase v9 SDK
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {getAuth} from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getAuth, RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyB3VxLhdKTGp9v_G4BlqWkVWOtoaXPqGW4",
   authDomain: "medikit-sih.firebaseapp.com",
@@ -19,10 +16,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+// Optionally enable analytics (only in browser environment)
+const analytics = typeof window !== "undefined" ? getAnalytics(app) : null;
+
+// Initialize Firebase Authentication and export it
 const auth = getAuth(app);
 
-
-
-
-export {auth };
+export { auth, RecaptchaVerifier, signInWithPhoneNumber };

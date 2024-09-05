@@ -9,6 +9,7 @@ import Highlights from './components/Highlights';
 import Footer from './components/Footer';
 import Homepage from './components/Homepage';
 import PhoneSignIn from './components/Phone';
+import Profilesetup from './components/Profilesetup';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -34,6 +35,10 @@ function App() {
     {
       path: "/phoneSignin",
       element: <PhoneSignIn/>
+    },
+    {
+      path: "/onboarding",
+      element: <Profilesetup/>
     }
   ]);
 

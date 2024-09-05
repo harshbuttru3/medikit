@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './Login.css'; // Ensure you have the appropriate CSS in Login.css
 import GoogleSignIn from './Google';
-import PhoneSignIn from './Phone';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -15,6 +14,9 @@ const Login = () => {
   const handleSignupClick = () => {
     setIsLogin(false);
   };
+  const handlePhoneClick = () => {
+    window.location.href = "./phoneSignin";
+  }
 
   return (
     <div id='loginreg'>
@@ -28,7 +30,7 @@ const Login = () => {
     <h2>Login</h2>
         <div className="button">
           <GoogleSignIn> <i className="fa-brands fa-google"></i> Google</GoogleSignIn>
-          <button type="button">
+          <button type="button" onClick={handlePhoneClick}>
             <i className="fa-solid fa-mobile-screen-button"></i> Phone
           </button>
         </div>
@@ -41,10 +43,8 @@ const Login = () => {
   <div id="signup" className="form-container">
     <h2>Register</h2>
         <div className="button">
-          <button type="button">
-            <i className="fa-brands fa-google"></i> Google
-          </button>
-          <button type="button">
+          <GoogleSignIn/>
+          <button type="button" onClick={handlePhoneClick}>
             <i className="fa-solid fa-mobile-screen-button"></i> Phone
           </button>
         </div>

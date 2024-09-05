@@ -1,68 +1,98 @@
-import React, { useState } from 'react';
-import { auth } from '../firebaseConfig';// Import your Firebase auth instance
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import React, { useState, useEffect } from 'react';
+import { auth } from '../firebaseConfig'; // Import your Firebase auth instance
+import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential } from 'firebase/auth';
 
-const PhoneSignIn = () => {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [verificationId, setVerificationId] = useState(null);
-  const [verificationCode, setVerificationCode] = useState('');
-  const [user, setUser] = useState(null);
-  const [showVerification, setShowVerification] = useState(false);
+const PhoneSignin = () => {
+  const [phone, setPhone] = useState('+91'); // Initial phone number
+  const [hasFilled, setHasFilled] = useState(false); // Tracks if the phone number has been filled
+  const [otp, setOtp] = useState(''); // Stores the OTP entered by the user
+  const [verificationId, setVerificationId] = useState(null); // Stores the verification ID
 
-  const handlePhoneNumberChange = (event) => {
-    setPhoneNumber(event.target.value);
+  const generateRecaptcha = () => {
+    window.recaptchaVerifier = new RecaptchaVerifier('recaptcha', {
+      'size': 'invisible',
+      'callback': (response) => {
+        // reCAPTCHA solved, allow signInWithPhoneNumber.
+      }
+    }, auth);
   };
 
-  const handleVerificationCodeChange = (event) => {
-    setVerificationCode(event.target.value);
-  };
+  const handleSend = (event) => {
+    event.preventDefault();
+    setHasFilled(true);
+    generateRecaptcha(); // Create the RecaptchaVerifier
+    let appVerifier = window.recaptchaVerifier;
 
-  const startPhoneNumberVerification = async () => {
-    try {
-      const appVerifier = new RecaptchaVerifier('recaptcha-container', {
-        size: 'invisible',
-        callback: (response) => {
-          // reCAPTCHA solved, proceed with sign-in
-        },
+    signInWithPhoneNumber(auth, phone, appVerifier)
+      .then((confirmationResult) => {
+        // SMS sent. Store the confirmation result
+        window.confirmationResult = confirmationResult;
+        setVerificationId(confirmationResult.verificationId); // Store the verification ID
+      })
+      .catch((error) => {
+        // Error; SMS not sent
+        console.log(error);
       });
+  };
 
-      const result = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
-      setVerificationId(result.verificationId);
-      setShowVerification(true);
-      console.log("Verification ID:", result.verificationId);
-    } catch (error) {
-      console.error("Error starting phone number verification:", error);
+  const verifyOtp = (event) => {
+    let otp = event.target.value;
+    setOtp(otp);
+
+    if (otp.length === 6) {
+      // Verify OTP
+      let confirmationResult = window.confirmationResult;
+      confirmationResult.confirm(otp)
+        .then((result) => {
+          // User signed in successfully.
+          let user = result.user;
+          console.log(user);
+          alert('User signed in successfully');
+        })
+        .catch((error) => {
+          // User couldn't sign in (bad verification code?)
+          alert('Invalid verification code');
+        });
     }
   };
 
-  const verifyPhoneNumber = async () => {
-    try {
-      const credential = PhoneAuthProvider.credential(verificationId, verificationCode);
-      const result = await signInWithCredential(auth, credential);
-      setUser(result.user);
-      console.log("User signed in with phone number:", result.user);
-    } catch (error) {
-      console.error("Error verifying phone number:", error);
+  useEffect(() => {
+    if (hasFilled) {
+      // Only create the RecaptchaVerifier when the element is rendered
+      generateRecaptcha();
     }
-  };
+  }, [hasFilled]); // Run this effect when hasFilled changes
 
   return (
     <div>
-      {!showVerification && (
+      <h2>Phone Sign-in</h2>
+      {/* Phone Input Form */}
+      {!hasFilled ? (
+        <form onSubmit={handleSend}>
+          <input
+            type="text"
+            placeholder="Enter your phone number"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+          />
+          <div id="recaptcha"></div> {/* Make sure this is rendered */}
+          <button type="submit">Send OTP</button>
+        </form>
+      ) : (
+        // OTP Input for verification
         <div>
-          <input type="tel" value={phoneNumber} onChange={handlePhoneNumberChange} placeholder="Enter your phone number" />
-          <button onClick={startPhoneNumberVerification}>Send Verification Code</button>
-        </div>
-      )}
-
-      {showVerification && (
-        <div>
-          <input type="text" value={verificationCode} onChange={handleVerificationCodeChange} placeholder="Enter verification code" />
-          <button onClick={verifyPhoneNumber}>Verify</button>
+          <input
+            type="text"
+            placeholder="Enter OTP"
+            value={otp}
+            onChange={verifyOtp}
+            maxLength={6}
+          />
         </div>
       )}
     </div>
   );
 };
 
-export default PhoneSignIn;
+export default PhoneSignin;

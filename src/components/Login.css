@@ -1,6 +1,6 @@
 #loginreg{
     height: 100vh;
-    width: 100vw;
+    width: 100%;
     /* background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.FKsK9QqfnzvTNNvC3I5BOQHaEo%26pid%3DApi&f=1&ipt=d3fee62d74a20c272389b886403eb082f3168b0e48f8f9e229b658fe562aa2dd&ipo=images"); */
     background-size: cover;
     background-position: center;
@@ -12,13 +12,13 @@
     height: 80%;
     width: 60%;
     background-color: rgba(255, 255, 255, 0.25);
-    margin: 7vh auto;
+    margin: 50px auto;
     border-radius: 40px;
     backdrop-filter: blur(20px);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 4vh 6vw;
+    padding: 20px 35px;
     color: white;
     gap: 2%;
 
@@ -46,13 +46,13 @@
 }
 
 #container .form-container h2 {
-    font-size: 2.5vw;
+    font-size: 50px;
     margin-bottom: 40px;
     color: white;
 }
 
 #container .form-container .inputing {
-    height: 8vh;
+    height: 65px;
     width: 80%;
     background-color: transparent;
     border: none;
@@ -60,7 +60,7 @@
     border-bottom: 2.5px solid white;
     color: white;
     text-align: center;
-    font-size: 1.3vw;
+    font-size: 25px;
     margin-bottom: 20px;
 }
 
@@ -70,10 +70,10 @@
 
 #container .form-container button {
     width: 80%;
-    height: 8vh;
+    height: 70px;
     background-color: transparent;
     border: 2px solid white;
-    font-size: 1.5vw;
+    font-size: 30px;
     color: white;
     border-radius: 50px;
     font-weight: 700;
@@ -105,12 +105,16 @@
     flex: 1;
     background-color: transparent;
     border: 2px solid white;
-    font-size: 1.3vw;
+    font-size: 25px;
     color: white;
     margin: 0 10px;
     border-radius: 5px;
     cursor: pointer;
-    height: 6vh;
+    height: 55px;
+}
+
+#container .form-container .button button .fa-solid{
+    margin-right: 0;
 }
 
 #container .form-container h3 span {
@@ -128,25 +132,59 @@
 
 
 @media (max-width: 1200px) {
-    #logphoto {
+    
+    #container{
+        padding: 15px 20px;
+        height: 70%;
+        width: 90%;
+    }
+    
+    #container .form-container {
+        height: 100%;
+        width: 100%;
+        border-radius: 20px;
+        padding: 0 0;
+    }
+    
+    
+    #container #logphoto {
         display: none;
     }
 
-    #container {
-        width: 60vw; /* Make the container full width */
-        justify-content: center; /* Center the form container */
-        align-items: center;
+    #container .form-container h2 {
+        font-size: 30px;
+        margin-top: 0;
+        margin-bottom: 10px;
     }
 
-    .form-container {
-        border-radius: 0;
+    #container .form-container .inputing {
+        height: 40px;
+        width: 80%;
+        border-bottom: 1.5px solid white;
+        font-size: 20px;
+        margin-bottom: 10px;
     }
 
-    .form-container h2 {
-        font-size: 10vw; /* Adjust heading size for mobile */
+    #container .form-container button {
+        width: 60%;
+        height: 50px;
+        background-color: transparent;
+        border: 1px solid white;
+        font-size: 25px;
+        font-weight: 400;
+        margin-bottom: 20px;
+        margin-top: 20px;
     }
 
-    .inputing, button {
-        font-size: 4vw; /* Adjust input and button font size for mobile */
+    #container .form-container .button {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    #container .form-container .button button {
+        border: 1px solid white;
+        font-size: 15px;
+        margin: 0 5px;
+        height: 40px;
     }
 }

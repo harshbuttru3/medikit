@@ -11,7 +11,7 @@ function GoogleSignIn() {
       const result = await signInWithPopup(auth, provider);
       setUser(result.user);
       console.log("User signed in with Google:", result.user);
-      window.location.href = "/homepage"
+      window.location.href = "/onboarding"
     } catch (error) {
       console.error("Error signing in with Google:", error);
     }

@@ -1,0 +1,23 @@
+/* LoadingSpinner.css */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full screen */
+  }
+  
+  .loading-spinner {
+    width: 70px;
+    height: 70px;
+    border: 8px solid rgba(21, 119, 248, 0.1);
+    border-top-color: #5edf44;
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  

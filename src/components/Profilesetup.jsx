@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import './Profilesetup.css';
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../firebaseConfig";
+import { setDoc, doc, getDoc } from "firebase/firestore";
+import { db, auth } from "../firebaseConfig";
+import StateDistrict from "./StateDistrict";
+import { onAuthStateChanged } from "firebase/auth";
+import LoadingSpinner from "./LoadingSpinner";
+
 
 function Profilesetup() {
+  const navigate = useNavigate();
+
   // Form state management
   const [formData, setFormData] = useState({
     relation: "",
@@ -20,203 +27,61 @@ function Profilesetup() {
     district: ""
   });
 
-  // Define states and their respective districts
-  const stateDistricts = {
-    AndhraPradesh: [
-      "Anantapur", "Chittoor", "East Godavari", "Guntur", "Kadapa", "Krishna", 
-      "Kurnool", "Nellore", "Prakasam", "Srikakulam", "Visakhapatnam", "Vizianagaram", 
-      "West Godavari", "Annamayya", "Sri Balaji", "Kakinada", "Palnadu", "Nandyal", "NTR", "Sri Potti Sriramulu", "Bapatla", "Parvathipuram Manyam", "Konaseema", "Alluri Sitharama Raju"
-    ],
-    ArunachalPradesh: [
-      "Tawang", "West Kameng", "East Kameng", "Papum Pare", "Kurung Kumey", "Kra Daadi", 
-      "Lower Subansiri", "Upper Subansiri", "West Siang", "East Siang", "Siang", 
-      "Upper Siang", "Lower Siang", "Lower Dibang Valley", "Dibang Valley", "Anjaw", 
-      "Lohit", "Namsai", "Changlang", "Tirap", "Longding", "Pakke Kessang", 
-      "Kamle", "Leparada", "Shi Yomi", "Lepa Rada"
-    ],
-    Assam: [
-      "Baksa", "Barpeta", "Biswanath", "Bongaigaon", "Cachar", "Charaideo", "Chirang", 
-      "Darrang", "Dhemaji", "Dhubri", "Dibrugarh", "Goalpara", "Golaghat", "Hailakandi", 
-      "Hojai", "Jorhat", "Kamrup", "Kamrup Metropolitan", "Karbi Anglong", 
-      "Karimganj", "Kokrajhar", "Lakhimpur", "Majuli", "Morigaon", "Nagaon", 
-      "Nalbari", "Sivasagar", "Sonitpur", "South Salmara-Mankachar", "Tinsukia", "Udalguri", "West Karbi Anglong"
-    ],
-    Bihar: [
-      "Araria", "Arwal", "Aurangabad", "Banka", "Begusarai", "Bhagalpur", "Bhojpur", 
-      "Buxar", "Darbhanga", "East Champaran", "Gaya", "Gopalganj", "Jamui", 
-      "Jehanabad", "Kaimur", "Katihar", "Khagaria", "Kishanganj", "Lakhisarai", 
-      "Madhepura", "Madhubani", "Munger", "Muzaffarpur", "Nalanda", "Nawada", 
-      "Patna", "Purnia", "Rohtas", "Saharsa", "Samastipur", "Saran", "Sheikhpura", 
-      "Sheohar", "Sitamarhi", "Siwan", "Supaul", "Vaishali", "West Champaran"
-    ],
-    Chhattisgarh: [
-      "Balod", "Baloda Bazar", "Balrampur", "Bastar", "Bemetara", "Bijapur", 
-      "Bilaspur", "Dantewada", "Dhamtari", "Durg", "Gariaband", "Gaurela-Pendra-Marwahi", 
-      "Janjgir-Champa", "Jashpur", "Kabirdham", "Kanker", "Kondagaon", "Korba", 
-      "Koriya", "Mahasamund", "Mungeli", "Narayanpur", "Raigarh", "Raipur", 
-      "Rajnandgaon", "Sukma", "Surajpur", "Surguja"
-    ],
-    Goa: [
-      "North Goa", "South Goa"
-    ],
-    Gujarat: [
-      "Ahmedabad", "Amreli", "Anand", "Aravalli", "Banaskantha", "Bharuch", 
-      "Bhavnagar", "Botad", "Chhota Udaipur", "Dahod", "Dang", "Devbhoomi Dwarka", 
-      "Gandhinagar", "Gir Somnath", "Jamnagar", "Junagadh", "Kheda", "Kutch", 
-      "Mahisagar", "Mehsana", "Morbi", "Narmada", "Navsari", "Panchmahal", 
-      "Patan", "Porbandar", "Rajkot", "Sabarkantha", "Surat", "Surendranagar", 
-      "Tapi", "Vadodara", "Valsad"
-    ],
-    Haryana: [
-      "Ambala", "Bhiwani", "Charkhi Dadri", "Faridabad", "Fatehabad", "Gurugram", 
-      "Hisar", "Jhajjar", "Jind", "Kaithal", "Karnal", "Kurukshetra", "Mahendragarh", 
-      "Nuh", "Palwal", "Panchkula", "Panipat", "Rewari", "Rohtak", "Sirsa", 
-      "Sonipat", "Yamunanagar"
-    ],
-    HimachalPradesh: [
-      "Bilaspur", "Chamba", "Hamirpur", "Kangra", "Kinnaur", "Kullu", 
-      "Lahaul and Spiti", "Mandi", "Shimla", "Sirmaur", "Solan", "Una"
-    ],
-    Jharkhand: [
-      "Bokaro", "Chatra", "Deoghar", "Dhanbad", "Dumka", "East Singhbhum", 
-      "Garhwa", "Giridih", "Godda", "Gumla", "Hazaribagh", "Jamtara", 
-      "Khunti", "Koderma", "Latehar", "Lohardaga", "Pakur", "Palamu", 
-      "Ramgarh", "Ranchi", "Sahebganj", "Seraikela Kharsawan", "Simdega", "West Singhbhum"
-    ],
-    Karnataka: [
-      "Bagalkot", "Bangalore", "Bangalore Rural", "Belgaum", "Bellary", "Bidar", 
-      "Chamarajanagar", "Chikkaballapur", "Chikkamagaluru", "Chitradurga", "Dakshina Kannada", 
-      "Davanagere", "Dharwad", "Gadag", "Gulbarga", "Hassan", "Haveri", "Kodagu", 
-      "Kolar", "Koppal", "Mandya", "Mysore", "Raichur", "Ramanagara", "Shimoga", 
-      "Tumkur", "Udupi", "Uttara Kannada", "Vijayapura", "Yadgir"
-    ],
-    Kerala: [
-      "Alappuzha", "Ernakulam", "Idukki", "Kannur", "Kasaragod", "Kollam", 
-      "Kottayam", "Kozhikode", "Malappuram", "Palakkad", "Pathanamthitta", 
-      "Thiruvananthapuram", "Thrissur", "Wayanad"
-    ],
-    MadhyaPradesh: [
-      "Agar Malwa", "Alirajpur", "Anuppur", "Ashoknagar", "Balaghat", "Barwani", 
-      "Betul", "Bhind", "Bhopal", "Burhanpur", "Chhatarpur", "Chhindwara", 
-      "Damoh", "Datia", "Dewas", "Dhar", "Dindori", "Guna", "Gwalior", "Harda", 
-      "Hoshangabad", "Indore", "Jabalpur", "Jhabua", "Katni", "Khandwa", "Khargone", 
-      "Mandla", "Mandsaur", "Morena", "Narsinghpur", "Neemuch", "Niwari", 
-      "Panna", "Raisen", "Rajgarh", "Ratlam", "Rewa", "Sagar", "Satna", 
-      "Sehore", "Seoni", "Shahdol", "Shajapur", "Sheopur", "Shivpuri", 
-      "Sidhi", "Singrauli", "Tikamgarh", "Ujjain", "Umaria", "Vidisha"
-    ],
-    Maharashtra: [
-      "Ahmednagar", "Akola", "Amravati", "Aurangabad", "Beed", "Bhandara", 
-      "Buldhana", "Chandrapur", "Dhule", "Gadchiroli", "Gondia", "Hingoli", 
-      "Jalgaon", "Jalna", "Kolhapur", "Latur", "Mumbai", "Nagpur", "Nanded", 
-      "Nandurbar", "Nashik", "Osmanabad", "Palghar", "Parbhani", "Pune", 
-      "Raigad", "Ratnagiri", "Sangli", "Satara", "Sindhudurg", "Solapur", 
-      "Thane", "Wardha", "Washim", "Yavatmal"
-    ],
-    Manipur: [
-      "Bishnupur", "Chandel", "Churachandpur", "Imphal East", "Imphal West", "Jiribam", 
-      "Kakching", "Kamjong", "Kangpokpi", "Noney", "Pherzawl", "Senapati", 
-      "Tamenglong", "Tengnoupal", "Thoubal", "Ukhrul"
-    ],
-    Meghalaya: [
-      "East Garo Hills", "East Jaintia Hills", "East Khasi Hills", "North Garo Hills", 
-      "Ri Bhoi", "South Garo Hills", "South West Garo Hills", "South West Khasi Hills", 
-      "West Garo Hills", "West Jaintia Hills", "West Khasi Hills"
-    ],
-    Mizoram: [
-      "Aizawl", "Champhai", "Hnahthial", "Khawzawl", "Kolasib", "Lawngtlai", 
-      "Lunglei", "Mamit", "Saiha", "Serchhip", "Saitual"
-    ],
-    Nagaland: [
-      "Dimapur", "Kiphire", "Kohima", "Longleng", "Mokokchung", "Mon", "Noklak", 
-      "Peren", "Phek", "Tuensang", "Wokha", "Zunheboto"
-    ],
-    Odisha: [
-      "Angul", "Balangir", "Balasore", "Bargarh", "Bhadrak", "Boudh", "Cuttack", 
-      "Debagarh", "Dhenkanal", "Gajapati", "Ganjam", "Jagatsinghapur", "Jajpur", 
-      "Jharsuguda", "Kalahandi", "Kandhamal", "Kendrapara", "Kendujhar", "Khordha", 
-      "Koraput", "Malkangiri", "Mayurbhanj", "Nabarangpur", "Nayagarh", "Nuapada", 
-      "Puri", "Rayagada", "Sambalpur", "Subarnapur", "Sundergarh"
-    ],
-    Punjab: [
-      "Amritsar", "Barnala", "Bathinda", "Faridkot", "Fatehgarh Sahib", "Fazilka", 
-      "Ferozepur", "Gurdaspur", "Hoshiarpur", "Jalandhar", "Kapurthala", "Ludhiana", 
-      "Mansa", "Moga", "Muktsar", "Nawanshahr", "Pathankot", "Patiala", "Rupnagar", 
-      "Sangrur", "SAS Nagar", "Tarn Taran"
-    ],
-    Rajasthan: [
-      "Ajmer", "Alwar", "Banswara", "Baran", "Barmer", "Bharatpur", "Bhilwara", 
-      "Bikaner", "Bundi", "Chittorgarh", "Churu", "Dausa", "Dholpur", "Dungarpur", 
-      "Hanumangarh", "Jaipur", "Jaisalmer", "Jalore", "Jhalawar", "Jhunjhunu", 
-      "Jodhpur", "Karauli", "Kota", "Nagaur", "Pali", "Pratapgarh", "Rajsamand", 
-      "Sawai Madhopur", "Sikar", "Sirohi", "Sri Ganganagar", "Tonk", "Udaipur"
-    ],
-    Sikkim: [
-      "East Sikkim", "North Sikkim", "South Sikkim", "West Sikkim"
-    ],
-    TamilNadu: [
-      "Ariyalur", "Chengalpattu", "Chennai", "Coimbatore", "Cuddalore", "Dharmapuri", 
-      "Dindigul", "Erode", "Kallakurichi", "Kanchipuram", "Kanyakumari", "Karur", 
-      "Krishnagiri", "Madurai", "Mayiladuthurai", "Nagapattinam", "Namakkal", 
-      "Nilgiris", "Perambalur", "Pudukkottai", "Ramanathapuram", "Ranipet", 
-      "Salem", "Sivaganga", "Tenkasi", "Thanjavur", "Theni", "Thiruvallur", 
-      "Thiruvarur", "Thoothukudi", "Tiruchirappalli", "Tirunelveli", "Tirupathur", 
-      "Tiruppur", "Tiruvannamalai", "Vellore", "Viluppuram", "Virudhunagar"
-    ],
-    Telangana: [
-      "Adilabad", "Bhadradri Kothagudem", "Hyderabad", "Jagtial", "Jangaon", 
-      "Jayashankar Bhupalpally", "Jogulamba Gadwal", "Kamareddy", "Karimnagar", 
-      "Khammam", "Kumuram Bheem", "Mahabubabad", "Mahbubnagar", "Mancherial", 
-      "Medak", "Medchal–Malkajgiri", "Mulugu", "Nagarkurnool", "Nalgonda", 
-      "Narayanpet", "Nirmal", "Nizamabad", "Peddapalli", "Rajanna Sircilla", 
-      "Rangareddy", "Sangareddy", "Siddipet", "Suryapet", "Vikarabad", "Wanaparthy", 
-      "Warangal Rural", "Warangal Urban", "Yadadri Bhuvanagiri"
-    ],
-    Tripura: [
-      "Dhalai", "Gomati", "Khowai", "North Tripura", "Sepahijala", "South Tripura", 
-      "Unakoti", "West Tripura"
-    ],
-    UttarPradesh: [
-      "Agra", "Aligarh", "Ambedkar Nagar", "Amethi", "Amroha", "Auraiya", 
-      "Ayodhya", "Azamgarh", "Baghpat", "Bahraich", "Ballia", "Balrampur", 
-      "Banda", "Barabanki", "Bareilly", "Basti", "Bhadohi", "Bijnor", "Budaun", 
-      "Bulandshahr", "Chandauli", "Chitrakoot", "Deoria", "Etah", "Etawah", 
-      "Farrukhabad", "Fatehpur", "Firozabad", "Gautam Buddh Nagar", "Ghaziabad", 
-      "Ghazipur", "Gonda", "Gorakhpur", "Hamirpur", "Hapur", "Hardoi", "Hathras", 
-      "Jalaun", "Jaunpur", "Jhansi", "Kannauj", "Kanpur Dehat", "Kanpur Nagar", 
-      "Kasganj", "Kaushambi", "Kushinagar", "Lakhimpur Kheri", "Lalitpur", 
-      "Lucknow", "Maharajganj", "Mahoba", "Mainpuri", "Mathura", "Mau", 
-      "Meerut", "Mirzapur", "Moradabad", "Muzaffarnagar", "Pilibhit", "Pratapgarh", 
-      "Prayagraj", "Raebareli", "Rampur", "Saharanpur", "Sambhal", "Sant Kabir Nagar", 
-      "Shahjahanpur", "Shamli", "Shravasti", "Siddharthnagar", "Sitapur", "Sonbhadra", 
-      "Sultanpur", "Unnao", "Varanasi"
-    ],
-    Uttarakhand: [
-      "Almora", "Bageshwar", "Chamoli", "Champawat", "Dehradun", "Haridwar", 
-      "Nainital", "Pauri Garhwal", "Pithoragarh", "Rudraprayag", "Tehri Garhwal", 
-      "Udham Singh Nagar", "Uttarkashi"
-    ],
-    WestBengal: [
-      "Alipurduar", "Bankura", "Birbhum", "Cooch Behar", "Dakshin Dinajpur", 
-      "Darjeeling", "Hooghly", "Howrah", "Jalpaiguri", "Jhargram", "Kalimpong", 
-      "Kolkata", "Malda", "Murshidabad", "Nadia", "North 24 Parganas", 
-      "Paschim Bardhaman", "Paschim Medinipur", "Purba Bardhaman", "Purba Medinipur", 
-      "Purulia", "South 24 Parganas", "Uttar Dinajpur"
-    ],
-  };
-  
-
+  const [loading, setLoading] = useState(true);
+  const stateDistricts = StateDistrict;
   const states = Object.keys(stateDistricts);
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
-  
+
+  // Check if user is logged in and if profile exists
+  useEffect(() => {
+    const checkUserProfile = async (user) => {
+      if (user) {
+        try {
+          const profileRef = doc(db, "profiles", user.uid); // Reference to the profile document using user's UID
+          const profileSnap = await getDoc(profileRef);
+
+          console.log("User profile check:", profileSnap.exists());
+
+          if (profileSnap.exists()) {
+            console.log("Profile exists. Redirecting to homepage...");
+            navigate("/homepage");
+          } else {
+            console.log("No profile found. Proceed with profile setup.");
+            setLoading(false);
+          }
+        } catch (error) {
+          console.error("Error fetching profile:", error);
+        }
+      } else {
+        console.log("No user logged in. Redirecting to login...");
+        navigate("/login");
+      }
+    };
+
+    // Firebase auth state listener
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User authenticated:", user.uid);
+        checkUserProfile(user); // Check if the profile exists when user is authenticated
+      } else {
+        console.log("User not authenticated. Redirecting to login...");
+        navigate("/login");
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, [navigate]);
+
   // Handle input changes
   const handleChange = (e) => {
     const { id, value } = e.target;
+    console.log(`Input change - ${id}: ${value}`);
     setFormData((prevData) => ({
       ...prevData,
       [id]: value,
     }));
-    
+
     // Reset district if state changes
     if (id === "state") {
       setFormData((prevData) => ({
@@ -229,17 +94,33 @@ function Profilesetup() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("Form submission:", formData);
     try {
-      // Add a new document with form data to Firestore
-      await addDoc(collection(db, "profiles"), formData);
-      alert("Profile successfully saved!");
+      // Get current user
+      const user = auth.currentUser;
+      if (user) {
+        console.log("Submitting profile for user:", user.uid);
+        // Save profile with the user's UID
+        await setDoc(doc(db, "profiles", user.uid), { ...formData, userId: user.uid });
+        console.log("Profile setup successful. Redirecting to homepage...");
+        alert("Profile setup successful");
+        navigate("/homepage");
+      } else {
+        console.log("User not authenticated.");
+        alert("User not authenticated");
+      }
     } catch (error) {
-      console.error("Error saving profile: ", error);
+      console.error("Error adding document:", error);
+      alert("There was an error setting up the profile. Please try again.");
     }
+    
   };
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
+    
     <div id="Profilesetup">
       <div className="form-container">
         <div className="form-header">
@@ -264,6 +145,7 @@ function Profilesetup() {
                 <option value="Mr.">Mr.</option>
                 <option value="Ms.">Ms.</option>
                 <option value="Mrs.">Mrs.</option>
+                <option value=" ">None</option>
               </select>
             </div>
           </div>

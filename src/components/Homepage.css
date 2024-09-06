@@ -1,0 +1,85 @@
+.homepage-container {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fc;
+    padding: 20px;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #125;
+    padding: 10px 20px;
+    color: white;
+  }
+  
+  .nav-links a {
+    margin: 0 15px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .nav-links a:hover {
+    color: #ff9800;
+  }
+  
+  .profile-btn {
+    background-color: #07001f;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  .main-content {
+    margin-top: 20px;
+  }
+  
+  .quick-actions {
+    margin-top: 20px;
+  }
+  
+  .quick-actions .actions {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .action-btn {
+    display: inline-block;
+    background-color: #1976d2;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .notifications {
+    margin-top: 20px;
+  }
+  
+  .notifications ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .notifications ul li {
+    background-color: #dff0d8;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .real-time-stats {
+    margin-top: 20px;
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .stat-item {
+    background-color: #bbdefb;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }

@@ -125,7 +125,6 @@ const BookOPD = () => {
     }
   };
   
-
   return (
     <div>
       <h1>Book OPD</h1>

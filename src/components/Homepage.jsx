@@ -1,15 +1,20 @@
 import React from 'react';
 import "./Homepage.css";
+import { Link } from 'react-router-dom';
 
 function Homepage() {
+ const handleOPDBooking = () =>{
+  //some other logic
+ }
+  
   return (
     <div id='homepage'>
       <div className="container">
-        <div className="card">
+        <div className="card" onClick={handleOPDBooking}>
           <div className="icon">
             <img src="download-icon.png" alt="e-OPD Card" />
           </div>
-          <p>Book Appointment</p>
+          <Link to="/opdbooking">Book Appointment</Link>
         </div>
         <div className="card">
           <div className="icon">

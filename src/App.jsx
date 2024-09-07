@@ -11,6 +11,7 @@ import Homepage from './components/Homepage';
 import PhoneSignIn from './components/Phone';
 import Profilesetup from './components/Profilesetup';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import BookOPD from './components/BookOPD';
 
 function App() {
   const router = createBrowserRouter([
@@ -34,7 +35,6 @@ function App() {
       <>
       <Navbar/>
       <Homepage/>
-
       </>
       
     },
@@ -45,6 +45,10 @@ function App() {
     {
       path: "/onboarding",
       element: <Profilesetup/>
+    },
+    {
+      path: "/opdbooking",
+      element: <BookOPD/>
     }
   ]);
 

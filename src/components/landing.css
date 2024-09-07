@@ -301,7 +301,7 @@ a{
         opacity: 0;
     }
 }
-@media screen and (max-width: 678px) {
+@media screen and (max-width: 1000px) {
     .carousel .list .item .content{
         padding-right: 0;
     }
@@ -318,3 +318,5 @@ a{
         font-size: 15px;
     }
 }
+
+

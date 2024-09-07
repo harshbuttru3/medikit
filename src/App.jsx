@@ -30,7 +30,13 @@ function App() {
     },
     {
       path: "/homepage",
-      element: <Homepage/>
+      element: 
+      <>
+      <Navbar/>
+      <Homepage/>
+
+      </>
+      
     },
     {
       path: "/phoneSignin",

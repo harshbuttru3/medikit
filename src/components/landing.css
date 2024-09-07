@@ -1,12 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-body{
-    margin: 0;
-    background-color: #000;
-    color: #eee;
-    font-family: Poppins;
-    font-size: 12px;
-}
 a{
     text-decoration: none;
 }
@@ -90,7 +83,7 @@ a{
     color: #eee;
 }
 /* thumbail */
-.thumbnail{
+.carousel .thumbnail{
     position: absolute;
     bottom: 50px;
     left: 50%;
@@ -99,33 +92,33 @@ a{
     display: flex;
     gap: 20px;
 }
-.thumbnail .item{
+.carousel .thumbnail .item{
     width: 150px;
     height: 220px;
     flex-shrink: 0;
     position: relative;
 }
-.thumbnail .item img{
+.carousel .thumbnail .item img{
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 20px;
 }
-.thumbnail .item .content{
+.carousel .thumbnail .item .content{
     color: #fff;
     position: absolute;
     bottom: 10px;
     left: 10px;
     right: 10px;
 }
-.thumbnail .item .content .title{
+.carousel .thumbnail .item .content .title{
     font-weight: 500;
 }
-.thumbnail .item .content .description{
+.carousel .thumbnail .item .content .description{
     font-weight: 300;
 }
 /* arrows */
-.arrows{
+.carousel .arrows{
     position: absolute;
     top: 80%;
     right: 52%;
@@ -136,7 +129,7 @@ a{
     gap: 10px;
     align-items: center;
 }
-.arrows button{
+.carousel .arrows button{
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -147,7 +140,7 @@ a{
     font-weight: bold;
     transition: .5s;
 }
-.arrows button:hover{
+.carousel .arrows button:hover{
     background-color: #fff;
     color: #000;
 }
@@ -308,7 +301,7 @@ a{
     .carousel .list .item .content .title{
         font-size: 30px;
     }
-    .thumbnail .item{
+    .carousel .thumbnail .item{
         width: 100px;
         height: 160px;
         flex-shrink: 0;

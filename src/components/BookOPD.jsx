@@ -122,7 +122,7 @@ const BookOPD = () => {
   };
 
   return (
-    <div>
+    <div id='opd'>
       <h1>Book OPD</h1>
 
       {/* State Dropdown */}

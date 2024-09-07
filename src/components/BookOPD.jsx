@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { db } from '../firebaseConfig';
 import { collection, getDocs,addDoc, query, where } from 'firebase/firestore';
 import seedFirestore from './SeedFirestore'; // Import seed function
+import './Book.css'
 
 const BookOPD = () => {
   const [states, setStates] = useState([]);

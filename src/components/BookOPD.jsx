@@ -1,7 +1,6 @@
-// src/BookOPD.jsx
 import { useEffect, useState } from 'react';
 import { db } from '../firebaseConfig';
-import { collection, getDocs,addDoc, query, where } from 'firebase/firestore';
+import { collection, getDocs, addDoc, query, where } from 'firebase/firestore';
 import seedFirestore from './SeedFirestore'; // Import seed function
 import './Book.css'
 
@@ -24,7 +23,7 @@ const BookOPD = () => {
   useEffect(() => {
     seedFirestore(); // Seed data
 
-    // Fetch states from Firestore
+    // Fetch states once and store them
     const fetchStates = async () => {
       const querySnapshot = await getDocs(collection(db, 'states'));
       const stateData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -34,76 +33,76 @@ const BookOPD = () => {
     fetchStates();
   }, []);
 
-  // Fetch towns based on selected state
+  // Cache previously fetched data to avoid multiple Firestore reads
+  const fetchDataWithCache = async (cacheKey, path) => {
+    const cachedData = sessionStorage.getItem(cacheKey);
+    if (cachedData) {
+      return JSON.parse(cachedData);
+    }
+    const querySnapshot = await getDocs(collection(db, path));
+    const data = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    sessionStorage.setItem(cacheKey, JSON.stringify(data));
+    return data;
+  };
+
+  // Fetch towns based on selected state, with caching
   useEffect(() => {
     if (selectedState) {
       const fetchTowns = async () => {
-        const townsSnapshot = await getDocs(collection(db, `states/${selectedState}/towns`));
-        const townData = townsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setTowns(townData);
+        const townsData = await fetchDataWithCache(`towns_${selectedState}`, `states/${selectedState}/towns`);
+        setTowns(townsData);
       };
-
       fetchTowns();
     }
   }, [selectedState]);
 
-  // Fetch hospitals based on selected town
+  // Fetch hospitals based on selected town, with caching
   useEffect(() => {
     if (selectedTown) {
       const fetchHospitals = async () => {
-        const hospitalsSnapshot = await getDocs(collection(db, `states/${selectedState}/towns/${selectedTown}/hospitals`));
-        const hospitalData = hospitalsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setHospitals(hospitalData);
+        const hospitalsData = await fetchDataWithCache(`hospitals_${selectedTown}`, `states/${selectedState}/towns/${selectedTown}/hospitals`);
+        setHospitals(hospitalsData);
       };
-
       fetchHospitals();
     }
   }, [selectedTown]);
 
-  // Fetch departments based on selected hospital
+  // Fetch departments based on selected hospital, with caching
   useEffect(() => {
     if (selectedHospital) {
       const fetchDepartments = async () => {
-        const departmentsSnapshot = await getDocs(collection(db, `states/${selectedState}/towns/${selectedTown}/hospitals/${selectedHospital}/departments`));
-        const departmentData = departmentsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setDepartments(departmentData);
+        const departmentsData = await fetchDataWithCache(`departments_${selectedHospital}`, `states/${selectedState}/towns/${selectedTown}/hospitals/${selectedHospital}/departments`);
+        setDepartments(departmentsData);
       };
-
       fetchDepartments();
     }
   }, [selectedHospital]);
 
-  // Fetch doctors based on selected department
+  // Fetch doctors based on selected department, with caching
   useEffect(() => {
     if (selectedDepartment) {
       const fetchDoctors = async () => {
-        const doctorsSnapshot = await getDocs(collection(db, `states/${selectedState}/towns/${selectedTown}/hospitals/${selectedHospital}/departments/${selectedDepartment}/doctors`));
-        const doctorData = doctorsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        setDoctors(doctorData);
+        const doctorsData = await fetchDataWithCache(`doctors_${selectedDepartment}`, `states/${selectedState}/towns/${selectedTown}/hospitals/${selectedHospital}/departments/${selectedDepartment}/doctors`);
+        setDoctors(doctorsData);
       };
-
       fetchDoctors();
     }
   }, [selectedDepartment]);
 
-  // Fetch time slots based on selected doctor
+  // Fetch time slots based on selected doctor, with caching
   useEffect(() => {
     if (selectedDoctor) {
       const fetchTimeSlots = async () => {
-        const timeSlotsSnapshot = await getDocs(collection(db, `states/${selectedState}/towns/${selectedTown}/hospitals/${selectedHospital}/departments/${selectedDepartment}/doctors/${selectedDoctor}/timeSlots`));
-        const timeSlotData = timeSlotsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const timeSlotData = await fetchDataWithCache(`timeSlots_${selectedDoctor}`, `states/${selectedState}/towns/${selectedTown}/hospitals/${selectedHospital}/departments/${selectedDepartment}/doctors/${selectedDoctor}/timeSlots`);
         setTimeSlots(timeSlotData);
       };
-
       fetchTimeSlots();
     }
   }, [selectedDoctor]);
 
-
-  //submitting the data to "appointment" collection in firestore
+  // Submit the data to "appointment" collection in Firestore
   const handleSubmit = async () => {
     try {
-      // Create an object with the data to be submitted
       const appointmentData = {
         state: selectedState,
         town: selectedTown,
@@ -111,21 +110,17 @@ const BookOPD = () => {
         department: selectedDepartment,
         doctor: selectedDoctor,
         timeSlot: selectedTimeSlot,
-        timestamp: new Date() // Add a timestamp for the appointment
+        timestamp: new Date() 
       };
   
-      // Add the data to the Firestore collection "appointments"
       const docRef = await addDoc(collection(db, 'appointments'), appointmentData);
   
       console.log('Appointment booked successfully with ID:', docRef.id);
-      // You can add further logic here, e.g., show a confirmation message or redirect the user
-  
     } catch (error) {
       console.error('Error booking appointment:', error);
-      // Handle errors appropriately, e.g., show an error message to the user
     }
   };
-  
+
   return (
     <div>
       <h1>Book OPD</h1>

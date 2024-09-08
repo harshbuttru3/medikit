@@ -32,7 +32,7 @@ const Appointments = () => {
     fetchAppointments();
   }, []);
 
-//   if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="appointments">

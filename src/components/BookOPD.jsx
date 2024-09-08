@@ -1,18 +1,25 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { opdData} from "./opdData";
+import { opdData } from "./opdData";
 import { db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import "./Book.css";
+import Popup from "./Popup";
 
 const BookOPD = () => {
+  const loginPopup = "Please log in to book an appointment";
+  const failedAppointment = "Failed to book appointment";
+
   const [selectedState, setSelectedState] = useState("");
   const [selectedTown, setSelectedTown] = useState("");
   const [selectedHospital, setSelectedHospital] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDoctor, setSelectedDoctor] = useState("");
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
+  const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
+  const [popupMessage, setPopupMessage] = useState(""); // Dynamic message for the popup
+  const [onOkAction, setOnOkAction] = useState(null); // Dynamic action for the OK button
 
   const navigate = useNavigate();
 
@@ -20,11 +27,14 @@ const BookOPD = () => {
   const handleSubmit = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
+
     if (!user) {
-      alert("Please log in to book an appointment.");
+      setPopupMessage(loginPopup);
+      setOnOkAction(() => () => navigate('/login')); // Set the action for "OK" button to navigate to login
+      setShowPopup(true);
       return;
     }
-  
+
     const appointmentData = {
       userId: user.uid,
       state: selectedState,
@@ -35,20 +45,23 @@ const BookOPD = () => {
       timeSlot: selectedTimeSlot,
       timestamp: new Date(),
     };
-  
+
     try {
       // Add appointment data to Firestore
       const docRef = await addDoc(collection(db, "appointments"), appointmentData);
       console.log("Document written with ID: ", docRef.id);
-      
+
       // Send notification (this will be handled separately)
       alert("Appointment booked successfully");
       navigate("/homepage");
     } catch (e) {
       console.error("Error adding document: ", e);
-      alert("Failed to book appointment. Please try again.");
+      setPopupMessage(failedAppointment);
+      setOnOkAction(() => () => setShowPopup(false)); // Close the popup on failed booking
+      setShowPopup(true);
     }
   };
+
   return (
     <div id="opdbook">
       <div id="opd">
@@ -95,11 +108,13 @@ const BookOPD = () => {
               value={selectedHospital}
             >
               <option value="">Select Hospital</option>
-              {Object.keys(opdData[selectedState].towns[selectedTown].hospitals).map((hospital) => (
-                <option key={hospital} value={hospital}>
-                  {hospital}
-                </option>
-              ))}
+              {Object.keys(opdData[selectedState].towns[selectedTown].hospitals).map(
+                (hospital) => (
+                  <option key={hospital} value={hospital}>
+                    {hospital}
+                  </option>
+                )
+              )}
             </select>
           </>
         )}
@@ -166,6 +181,9 @@ const BookOPD = () => {
 
         {/* Submit Button */}
         <button onClick={handleSubmit}>Book Appointment</button>
+
+        {/* Conditionally render the popup */}
+        {showPopup && <Popup message={popupMessage} onOk={onOkAction} />}
       </div>
     </div>
   );

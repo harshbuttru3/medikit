@@ -1,5 +1,9 @@
 .appointments {
     padding: 20px;
+    height: 20vh;
+    width: 100%;
+    color: black;
+    background-color: white;
   }
   
   .appointments h2 {

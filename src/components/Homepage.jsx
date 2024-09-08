@@ -2,6 +2,10 @@ import React from 'react';
 import "./Homepage.css";
 import { Link } from 'react-router-dom';
 import Appointments from './Appointment';
+import Homecrousel from './Homecrousel';
+import Homefeature from './Homefeature';
+import Highlights from './Highlights';
+import Footer from './Footer'
 
 function Homepage() {
  const handleOPDBooking = () =>{
@@ -10,6 +14,7 @@ function Homepage() {
   
   return (
     <div id='homepage'>
+      <Homecrousel/>
       <div className="container">
         <div className="card" onClick={handleOPDBooking}>
           <div className="icon">
@@ -44,6 +49,9 @@ function Homepage() {
       </div>
       <div className="appointment-section">
         <Appointments/>
+        <Homefeature/>
+        <Highlights/>
+        <Footer/>
       </div>
     </div>
   );

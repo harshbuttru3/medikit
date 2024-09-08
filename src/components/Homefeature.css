@@ -1,0 +1,180 @@
+#onlineregistration{
+    font-family: Arial, sans-serif;
+    padding: 0;
+    background-color: red;
+    height: 75vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+#onlineregistration .container {
+    width: 100%;
+    height: 100%;
+    padding: 0 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#onlineregistration .container .title {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 40px;
+    padding: 5px 5px;
+    border: 2px solid black;
+    background-color: rgba(128, 128, 128, 0.235);
+    border-radius: 20px;
+    color: black;
+}
+
+#onlineregistration .container .description {
+    text-align: center;
+    margin-bottom: 45px;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #000000;
+}
+
+
+#onlineregistration .container .description .option {
+    color: rgb(25, 192, 19);
+    font-weight: 600;
+
+}
+
+#onlineregistration .container .description #sih {
+    color: rgb(58, 52, 230);
+    font-weight: 600;
+}
+
+#onlineregistration .container .description #company{
+    color: red;
+    font-weight: 600;
+}
+
+#onlineregistration .container .features {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+#onlineregistration .container .features .feature-card {
+    background-color: rgb(20, 141, 255);
+    color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    max-width: 33%;
+    text-align: center;
+    position: relative;
+}
+
+#onlineregistration .container .features .feature-card h3 {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+#onlineregistration .container .features .feature-card p {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+    #onlineregistration{
+        height: auto;
+        width: 100%;
+        
+    }
+    #onlineregistration .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+
+    #onlineregistration .container .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #onlineregistration .container .features .feature-card {
+        margin-bottom: 20px;
+    }
+
+    #onlineregistration .container .title {
+        font-size: 15px;
+        border: 2px solid black;
+        background-color: rgba(128, 128, 128, 0.235);
+        border-radius: 20px;
+        padding: 2px 4px;
+        margin-bottom: 25px;
+    }
+
+    #onlineregistration .container .description {
+        font-size: 14px;
+    }
+
+    #onlineregistration .container .features .feature-card h3 {
+        font-size: 18px;
+    }
+
+    #onlineregistration .container .features .feature-card p {
+        font-size: 14px;
+    }
+}
+
+/* Media Query for extra small devices (phones) */
+@media (max-width: 480px) {
+    #onlineregistration{
+        height: auto;
+        width: 100%;
+    }
+
+    #onlineregistration .container {
+        padding: 20px;
+    }
+
+    #onlineregistration .container .features .feature-card {
+        padding: 15px;
+        max-height: auto;
+        max-width: 300px;
+        margin-bottom: 0;
+    }
+
+    #onlineregistration .container .features .feature-card h3 {
+        font-size: 16px;
+    }
+
+    #onlineregistration .container .features .feature-card p {
+        font-size: 10px;
+        padding: 10px;
+    }
+
+    #onlineregistration .container .title {
+        font-size: 20px;
+        border: 1px solid black;
+        background-color: rgba(128, 128, 128, 0.235);
+        border-radius: 20px;
+        padding: 2px 4px;
+        margin-bottom: 25px;
+    }
+
+    #onlineregistration .container .description {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 12px;
+        line-height: 1.2;
+        color: #000000;
+    }
+
+}

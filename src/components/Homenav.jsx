@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Logout from "./Logout";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,7 +47,7 @@ function Navbar() {
           <NavLink to="/discover" className='navlink' activeClassName="active">DISCOVER</NavLink>
           <NavLink to="/dashboard" className='navlink' activeClassName="active">DASHBOARD</NavLink>
           <NavLink to="/contact" className='navlink' activeClassName="active">CONTACT</NavLink>
-          <NavLink to="/login" id="login" activeClassName="active"> <Logout/> </NavLink>
+          <NavLink to="/login" id="login" activeClassName="active">LOGIN</NavLink>
         </nav>
       </header>
     </>

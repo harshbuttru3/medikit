@@ -1,0 +1,17 @@
+.appointments {
+    padding: 20px;
+  }
+  
+  .appointments h2 {
+    margin-bottom: 10px;
+  }
+  
+  .appointments ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .appointments li {
+    margin-bottom: 10px;
+  }
+  

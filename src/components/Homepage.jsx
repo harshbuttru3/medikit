@@ -1,6 +1,7 @@
 import React from 'react';
 import "./Homepage.css";
 import { Link } from 'react-router-dom';
+import Appointments from './Appointment';
 
 function Homepage() {
  const handleOPDBooking = () =>{
@@ -40,6 +41,9 @@ function Homepage() {
           </div>
           <p>Ambulance Service</p>
         </div>
+      </div>
+      <div className="appointment-section">
+        <Appointments/>
       </div>
     </div>
   );

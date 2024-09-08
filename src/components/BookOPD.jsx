@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { opdData} from "./opdData";
+import { db } from "../firebaseConfig";
+import { addDoc, collection } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import "./Book.css";
 
 const BookOPD = () => {
@@ -14,8 +17,16 @@ const BookOPD = () => {
   const navigate = useNavigate();
 
   // Handle submission of appointment
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (!user) {
+      alert("Please log in to book an appointment.");
+      return;
+    }
+  
     const appointmentData = {
+      userId: user.uid,
       state: selectedState,
       town: selectedTown,
       hospital: selectedHospital,
@@ -24,12 +35,20 @@ const BookOPD = () => {
       timeSlot: selectedTimeSlot,
       timestamp: new Date(),
     };
-
-    console.log("Appointment data:", appointmentData);
-    alert("Appointment booked successfully");
-    navigate("/homepage");
+  
+    try {
+      // Add appointment data to Firestore
+      const docRef = await addDoc(collection(db, "appointments"), appointmentData);
+      console.log("Document written with ID: ", docRef.id);
+      
+      // Send notification (this will be handled separately)
+      alert("Appointment booked successfully");
+      navigate("/homepage");
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      alert("Failed to book appointment. Please try again.");
+    }
   };
-
   return (
     <div id="opdbook">
       <div id="opd">

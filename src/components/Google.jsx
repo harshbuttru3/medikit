@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { auth } from '../firebaseConfig'; // Import your Firebase auth instance
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 function GoogleSignIn() {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
   const handleGoogleSignIn = async () => {
@@ -11,7 +13,7 @@ function GoogleSignIn() {
       const result = await signInWithPopup(auth, provider);
       setUser(result.user);
       console.log("User signed in with Google:", result.user);
-      window.location.href = "/onboarding"
+      navigate('/onboarding');
     } catch (error) {
       console.error("Error signing in with Google:", error);
     }

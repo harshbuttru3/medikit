@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site" : "medikit-india",
     "public": "dist",
     "ignore": [
       "firebase.json",

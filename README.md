@@ -16,6 +16,7 @@ Medikit is a comprehensive healthcare management system designed to simplify var
 - **Database**: Firebase Firestore
 - **Authentication**: Firebase Authentication
 - **Deployment**: Firebase Hosting (or other hosting services)
+- **Sample Api**: Mockapi.io
 
 ## Installation
 

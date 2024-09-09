@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { opdData } from "./opdData";
+import { opdData } from "./opddata";
 import { db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -10,6 +10,7 @@ import Popup from "./Popup";
 const BookOPD = () => {
   const loginPopup = "Please log in to book an appointment";
   const failedAppointment = "Failed to book appointment";
+  const sucessAppointment = "Appointment booked successfully";
 
   const [selectedState, setSelectedState] = useState("");
   const [selectedTown, setSelectedTown] = useState("");
@@ -52,8 +53,10 @@ const BookOPD = () => {
       console.log("Document written with ID: ", docRef.id);
 
       // Send notification (this will be handled separately)
-      alert("Appointment booked successfully");
-      navigate("/homepage");
+      setPopupMessage(sucessAppointment); //send success appointment popup
+      setOnOkAction(() => () => navigate('/homepage')); //navigate to /homepage on clicking "ok"
+      setShowPopup(true);
+      // navigate("/homepage");
     } catch (e) {
       console.error("Error adding document: ", e);
       setPopupMessage(failedAppointment);

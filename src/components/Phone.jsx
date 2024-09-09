@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from '../firebaseConfig'; // Import your Firebase auth instance
 import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential } from 'firebase/auth';
+import Popup from './Popup';
 
 const PhoneSignin = () => {
   const [phone, setPhone] = useState('+91'); // Initial phone number

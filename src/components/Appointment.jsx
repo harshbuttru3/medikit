@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { db } from "../firebaseConfig"; // Import your Firebase configuration
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, deleteDoc, doc } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import LoadingSpinner from "./LoadingSpinner"
-import './Appointment.css'; // Optional: Add CSS for styling
+import LoadingSpinner from "./LoadingSpinner";
+import './Appointment.css'; // Your existing CSS file
+import jsPDF from 'jspdf'; // Import jsPDF
+import ConfirmationPopup from './ConfirmationPopup'; // Import the Confirmation Popup component
+import Popup from "./Popup"; // Import the simple Popup component
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
+  const [appointmentToCancel, setAppointmentToCancel] = useState(null); // State to store appointment to cancel
+  const [showConfirmationPopup, setShowConfirmationPopup] = useState(false); // State to control confirmation popup visibility
+  const [showPopup, setShowPopup] = useState(false); // State to control the success popup visibility
+  const [popupMessage, setPopupMessage] = useState(""); // Dynamic message for the popup
 
   useEffect(() => {
     const auth = getAuth();
@@ -43,6 +50,65 @@ const Appointments = () => {
     }
   };
 
+  const downloadPDF = (appointment) => {
+    const doc = new jsPDF();
+
+    // Add watermark
+    doc.setTextColor(150, 150, 150); // Light grey color for watermark
+    doc.setFontSize(50);
+    doc.text("Medikit", 105, 150, { align: 'center' });
+
+    // Add title
+    doc.setFontSize(22);
+    doc.text("Booked with Medikit", 10, 20);
+
+    // Add appointment details in the desired format
+    doc.setFontSize(16);
+    doc.text(`State: ${appointment.state}`, 10, 40);
+    doc.text(`Town: ${appointment.town}`, 10, 50);
+    doc.text(`Hospital: ${appointment.hospital}`, 10, 60);
+    doc.text(`Department: ${appointment.department}`, 10, 70);
+    doc.text(`Doctor: ${appointment.doctor}`, 10, 80);
+    doc.text(`Time Slot: ${appointment.timeSlot}`, 10, 90);
+    doc.text(`Booked on: ${appointment.timestamp.toDate().toLocaleString()}`, 10, 100);
+
+    // Save the PDF
+    doc.save(`appointment_${appointment.id}.pdf`);
+  };
+
+  const handleCancelClick = (appointment) => {
+    setAppointmentToCancel(appointment);
+    setShowConfirmationPopup(true);
+  };
+
+  const cancelAppointment = async () => {
+    try {
+      if (appointmentToCancel) {
+        await deleteDoc(doc(db, "appointments", appointmentToCancel.id));
+        setAppointments(prevAppointments => prevAppointments.filter(appointment => appointment.id !== appointmentToCancel.id));
+        setShowConfirmationPopup(false);
+        setPopupMessage("Appointment cancelled successfully");
+        setShowPopup(true);
+      }
+    } catch (error) {
+      console.error("Error canceling appointment: ", error);
+      setPopupMessage("Failed to cancel appointment. Please try again.");
+      setShowPopup(true);
+    }
+  };
+
+  const handleCancelConfirmation = () => {
+    cancelAppointment();
+  };
+
+  const handleCancelPopup = () => {
+    setShowConfirmationPopup(false);
+  };
+
+  const handlePopupOk = () => {
+    setShowPopup(false);
+  };
+
   if (loading) return <div><LoadingSpinner/></div>;
 
   return (
@@ -54,11 +120,33 @@ const Appointments = () => {
         <ul>
           {appointments.map((appointment) => (
             <li key={appointment.id}>
-              {appointment.state}, {appointment.town}, {appointment.hospital}, {appointment.department}, {appointment.doctor}, {appointment.timeSlot}
-              <span> (Booked on {appointment.timestamp.toDate().toLocaleString()})</span>
+              <div>
+                <p>State: {appointment.state}</p>
+                <p>Town: {appointment.town}</p>
+                <p>Hospital: {appointment.hospital}</p>
+                <p>Department: {appointment.department}</p>
+                <p>Doctor: {appointment.doctor}</p>
+                <p>Time Slot: {appointment.timeSlot}</p>
+                <p>Booked on: {appointment.timestamp.toDate().toLocaleString()}</p>
+                <button onClick={() => downloadPDF(appointment)} className="download-pdf-btn">Download PDF</button>
+                <button onClick={() => handleCancelClick(appointment)} className="cancel-appointment-btn">Cancel Appointment</button>
+              </div>
             </li>
           ))}
         </ul>
+      )}
+      {showConfirmationPopup && (
+        <ConfirmationPopup
+          message={`Are you sure you want to cancel this appointment?\n\nState: ${appointmentToCancel.state}\nTown: ${appointmentToCancel.town}\nHospital: ${appointmentToCancel.hospital}\nDepartment: ${appointmentToCancel.department}\nDoctor: ${appointmentToCancel.doctor}\nTime Slot: ${appointmentToCancel.timeSlot}`}
+          onConfirm={handleCancelConfirmation}
+          onCancel={handleCancelPopup}
+        />
+      )}
+      {showPopup && (
+        <Popup
+          message={popupMessage}
+          onOk={handlePopupOk}
+        />
       )}
     </div>
   );

@@ -15,13 +15,13 @@ import { getFirestore } from "firebase/firestore";
 //   measurementId: "G-F2SLC7YQM6"
 // };
 const firebaseConfig = {
-  apiKey: "AIzaSyDo1KJFMFOeOnaU0gmar-wwfTu9m_ov5G8",
-  authDomain: "medikit-64ce3.firebaseapp.com",
-  projectId: "medikit-64ce3",
-  storageBucket: "medikit-64ce3.appspot.com",
-  messagingSenderId: "588550100790",
-  appId: "1:588550100790:web:c9923aba1d485f66114597",
-  measurementId: "G-LG5X6G12TC"
+  apiKey: "AIzaSyByafH7V9NNqnyvoq4UW4daXAJ4GiW6I4g",
+  authDomain: "medikit-d5e89.firebaseapp.com",
+  projectId: "medikit-d5e89",
+  storageBucket: "medikit-d5e89.appspot.com",
+  messagingSenderId: "770935291198",
+  appId: "1:770935291198:web:dc60d93e0d64d566df806f",
+  measurementId: "G-KW98BVQJNG"
 };
 
 

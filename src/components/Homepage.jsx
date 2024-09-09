@@ -49,10 +49,13 @@ function Homepage() {
       </div>
       <div className="appointment-section">
         <Appointments/>
-        <Homefeature/>
+       
+      </div>
+      <div id="homefeature">
+       <Homefeature/>
+      </div>
         <Highlights/>
         <Footer/>
-      </div>
     </div>
   );
 }

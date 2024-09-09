@@ -12,6 +12,7 @@ import PhoneSignIn from './components/Phone';
 import Profilesetup from './components/Profilesetup';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import BookOPD from './components/BookOPD';
+import Homenav from "./components/Homenav";
 
 function App() {
   const router = createBrowserRouter([
@@ -33,7 +34,7 @@ function App() {
       path: "/homepage",
       element: 
       <>
-      <Navbar/>
+      <Homenav/>
       <Homepage/>
       </>
       

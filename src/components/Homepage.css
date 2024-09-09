@@ -52,6 +52,9 @@
   font-weight: bold;
   color: #002c77;
 }
+#homepage .appointment-section{
+  width: 50%
+}
 
 /* Mobile devices */
 @media (max-width: 600px) {

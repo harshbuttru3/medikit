@@ -3,11 +3,12 @@ import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import LogoutButton from './Logout';
 
 
 gsap.registerPlugin(ScrollTrigger);
 
-function Navbar() {
+function Homenav() {
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -47,11 +48,11 @@ function Navbar() {
           <NavLink to="/discover" className='navlink' activeClassName="active">DISCOVER</NavLink>
           <NavLink to="/dashboard" className='navlink' activeClassName="active">DASHBOARD</NavLink>
           <NavLink to="/contact" className='navlink' activeClassName="active">CONTACT</NavLink>
-          <NavLink to="/login" id="login" activeClassName="active">LOGIN</NavLink>
+          <NavLink to="/login" id="login" activeClassName="active"><LogoutButton/></NavLink>
         </nav>
       </header>
     </>
   );
 }
 
-export default Navbar;
+export default Homenav;

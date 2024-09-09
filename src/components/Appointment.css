@@ -1,10 +1,14 @@
 .appointments {
-    padding: 20px;
-    height: 20vh;
-    width: 100%;
-    color: black;
-    background-color: white;
-  }
+  padding: 20px;
+  width: 100%;
+  color: black;
+  background-color: white;
+  margin-top: 50px; /* Add top margin to separate from content above */
+  margin-bottom: 50px; /* Add bottom margin to separate from content below */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for better separation */
+  border-radius: 8px; /* Optional: Add border radius for rounded corners */
+}
+
   
   .appointments h2 {
     margin-bottom: 10px;

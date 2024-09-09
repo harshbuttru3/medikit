@@ -7,6 +7,8 @@ import Homefeature from './Homefeature';
 import Highlights from './Highlights';
 import Footer from './Footer'
 
+
+
 function Homepage() {
  const handleOPDBooking = () =>{
   //some other logic
@@ -26,7 +28,7 @@ function Homepage() {
           <div className="icon">
             <img src="payment-icon.png" alt="Payments" />
           </div>
-          <p>Bed Availablity</p>
+          <Link to="/bedAvailability">Bed Avialability</Link>
         </div>
         <div className="card">
           <div className="icon">

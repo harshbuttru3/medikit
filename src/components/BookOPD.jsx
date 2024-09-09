@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { opdData } from "./opddata";
+import { opdData} from "./opdData";
 import { db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";

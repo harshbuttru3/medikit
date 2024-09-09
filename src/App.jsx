@@ -13,6 +13,7 @@ import Profilesetup from './components/Profilesetup';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import BookOPD from './components/BookOPD';
 import Homenav from "./components/Homenav";
+import BedAvailability from './components/BedAvailability';
 
 function App() {
   const router = createBrowserRouter([
@@ -50,6 +51,10 @@ function App() {
     {
       path: "/opdbooking",
       element: <BookOPD/>
+    },
+    {
+      path: "/bedAvailability",
+      element: <BedAvailability/>
     }
   ]);
 

@@ -18,33 +18,40 @@ function Homepage() {
     <div id='homepage'>
       <Homecrousel/>
       <div className="container">
+
+      <Link to="/opdbooking">
         <div className="card" onClick={handleOPDBooking}>
           <div className="icon">
-            <img src="download-icon.png" alt="e-OPD Card" />
+            <img src="../public/image/consultation.gif" alt="e-OPD Card" />
           </div>
-          <Link to="/opdbooking">Book Appointment</Link>
+          Book Appointment
         </div>
+        </Link>
+
+        <Link to="/bedAvailability">
         <div className="card">
           <div className="icon">
-            <img src="payment-icon.png" alt="Payments" />
+            <img src="../public/image/hospitalization.gif" alt="Payments" />
           </div>
-          <Link to="/bedAvailability">Bed Avialability</Link>
+          Bed Availability
         </div>
+        </Link>
+
         <div className="card">
           <div className="icon">
-            <img src="blood-availability-icon.png" alt="Blood Availability" />
+            <img src="../public/image/blood-donation.gif" alt="Blood Availability" />
           </div>
           <p>Blood Availability</p>
         </div>
         <div className="card">
           <div className="icon">
-            <img src="blood-availability-icon.png" alt="Blood Availability" />
+            <img src="../public/image/online-meeting.gif" alt="Blood Availability" />
           </div>
-          <p>Blood Donation</p>
+          <p>E-Consultation</p>
         </div>
         <div className="card">
           <div className="icon">
-            <img src="lab-report-icon.png" alt="Lab Report" />
+            <img src="../public/image/ambulance.gif" alt="Lab Report" />
           </div>
           <p>Ambulance Service</p>
         </div>

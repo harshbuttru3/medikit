@@ -109,7 +109,7 @@ const Appointments = () => {
     setShowPopup(false);
   };
 
-  if (loading) return <div><LoadingSpinner/></div>;
+  if (loading) return <LoadingSpinner/>;
 
   return (
     <div className="appointments">
@@ -121,13 +121,15 @@ const Appointments = () => {
           {appointments.map((appointment) => (
             <li key={appointment.id}>
               <div id='gridapp'>
+                
                 <span id= 'gridspan'>State: <br /> {appointment.state}</span>
                 <span id= 'gridspan'>Town: <br /> {appointment.town}</span>
                 <span id= 'gridspan'>Hospital: <br /> {appointment.hospital}</span>
                 <span id= 'gridspan'>Department: <br /> {appointment.department}</span>
                 <span id= 'gridspan'>Doctor: <br /> {appointment.doctor}</span>
-                <span id= 'gridspan'>Time Slot: <br /> {appointment.timeSlot}</span>
-                <span id= 'gridspan'>Booked on: <br /> {appointment.timestamp.toDate().toLocaleString()}</span>
+                <span id= 'time-slot'>Time Slot: <br /> {appointment.timeSlot}</span>
+                <span id= 'gridspan'>Booked on: <br /> {appointment.timestamp.toDate().toLocaleDateString()}</span>
+                <span id='gridspan'>Time: <br /> {appointment.timestamp.toDate().toLocaleTimeString()}</span>
               </div>
               <div id="gridbutton">
 

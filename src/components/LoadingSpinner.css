@@ -3,7 +3,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full screen */
+    height: 50vh; /* Full screen */
+    width: 100vw;
   }
   
   .loading-spinner {

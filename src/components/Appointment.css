@@ -1,13 +1,14 @@
 .appointments {
   padding: 20px;
   width: 100vw;
-  height: 30vh;
+  height: 50vh;
   color: black;
   background-color: rgb(225, 252, 214);
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: ; */
   flex-direction: column;
+  overflow-y: auto;
 }
 
   
@@ -57,7 +58,18 @@
     height: 18%;
     background-color: rgb(255, 196, 246);
   }
-
+  .appointments ul li #gridapp #time-slot{
+    text-align: center;
+    border: 1px solid black;
+    font-size: 20px;
+    font-weight: 500;
+    border-radius: 5px;
+    padding: 2px 4px;
+    width: 22%;
+    height: 18%;
+    background-color: rgb(255, 196, 246);
+  }
+ 
   .appointments ul li #gridbutton{
     padding: 15px 30px;
     display: flex;

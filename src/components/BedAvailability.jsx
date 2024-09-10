@@ -29,7 +29,7 @@ const BedAvailability = () => {
   );
 
   if (loading) {
-    return <div><LoadingSpinner/></div>;
+    return <LoadingSpinner/>;
   }
 
   if (error) {

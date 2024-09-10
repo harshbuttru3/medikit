@@ -1,0 +1,79 @@
+/* General page styling */
+#Bedtable{
+    background-color: white;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+#Bedtable h1 {
+    text-align: center;
+    color: #333;
+    font-size: 50px;
+    padding: 10px 20px;
+}
+
+  /* Search bar styling */
+#Bedtable input[type="text"] {
+    width: 50%;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 20px;
+    text-align: center;
+  }
+  
+#Bedtable input[type="text"]:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  /* Table styling */
+#Bedtable table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+  }
+  
+  thead th {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+  }
+  
+  /* Table cell border */
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  td {
+    color: #333;
+  }
+  
+  /* Message when no results found */
+#Bedtable p {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    margin-top: 15%;
+    /* background-color: rgb(255, 147, 147); */
+    /* border: 2px solid black; */
+    font-size: 40px;
+  }

@@ -9,6 +9,7 @@ import Footer from './Footer'
 
 
 
+
 function Homepage() {
  const handleOPDBooking = () =>{
   //some other logic
@@ -22,7 +23,7 @@ function Homepage() {
       <Link to="/opdbooking">
         <div className="card" onClick={handleOPDBooking}>
           <div className="icon">
-            <img src="../public/image/consultation.gif" alt="e-OPD Card" />
+            <img src="/image/consultation.gif" alt="e-OPD Card" />
           </div>
           Book Appointment
         </div>
@@ -31,7 +32,7 @@ function Homepage() {
         <Link to="/bedAvailability">
         <div className="card">
           <div className="icon">
-            <img src="../public/image/hospitalization.gif" alt="Payments" />
+            <img src="/image/hospitalization.gif" alt="Payments" />
           </div>
           Bed Availability
         </div>
@@ -39,22 +40,24 @@ function Homepage() {
 
         <div className="card">
           <div className="icon">
-            <img src="../public/image/blood-donation.gif" alt="Blood Availability" />
+            <img src="/image/blood-donation.gif" alt="Blood Availability" />
           </div>
           <p>Blood Availability</p>
         </div>
         <div className="card">
           <div className="icon">
-            <img src="../public/image/online-meeting.gif" alt="Blood Availability" />
+            <img src="/image/online-meeting.gif" alt="Blood Availability" />
           </div>
           <p>E-Consultation</p>
         </div>
+        <Link to="/ambulance">
         <div className="card">
           <div className="icon">
-            <img src="../public/image/ambulance.gif" alt="Lab Report" />
+            <img src="/image/ambulance.gif" alt="Lab Report" />
           </div>
           <p>Ambulance Service</p>
         </div>
+        </Link>
       </div>
       <div className="appointment-section">
         <Appointments/>

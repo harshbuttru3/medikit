@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import LoadingSpinner from './LoadingSpinner';
+import './bed-availability.css';
+
 
 const BedAvailability = () => {
   const [beds, setBeds] = useState([]);
@@ -37,7 +39,7 @@ const BedAvailability = () => {
   }
 
   return (
-    <div>
+    <div id='Bedtable'>
       <h1>Hospital Bed Availability</h1>
       
       {/* Search Input */}

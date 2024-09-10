@@ -14,6 +14,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import BookOPD from './components/BookOPD';
 import Homenav from "./components/Homenav";
 import BedAvailability from './components/BedAvailability';
+import ShareLocation from './components/ShareLocation';
+import AmbulanceTracker from './components/AmbulanceTracker';
 
 function App() {
   const router = createBrowserRouter([
@@ -55,6 +57,14 @@ function App() {
     {
       path: "/bedAvailability",
       element: <BedAvailability/>
+    },
+    {
+      path: "/sharelocation",
+      element: <ShareLocation/>
+    },
+    {
+      path: "/ambulance",
+      element: <AmbulanceTracker/>
     }
   ]);
 

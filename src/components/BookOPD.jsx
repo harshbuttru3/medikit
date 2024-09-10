@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { opdData} from "./opdData";
+import { opdData } from "./opdData";
 import { db } from "../firebaseConfig";
 import { addDoc, collection } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -10,7 +10,7 @@ import Popup from "./Popup";
 const BookOPD = () => {
   const loginPopup = "Please log in to book an appointment";
   const failedAppointment = "Failed to book appointment";
-  const sucessAppointment = "Appointment booked successfully";
+  const successAppointment = "Appointment booked successfully";
 
   const [selectedState, setSelectedState] = useState("");
   const [selectedTown, setSelectedTown] = useState("");
@@ -18,20 +18,40 @@ const BookOPD = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedDoctor, setSelectedDoctor] = useState("");
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
-  const [showPopup, setShowPopup] = useState(false); // State to control popup visibility
-  const [popupMessage, setPopupMessage] = useState(""); // Dynamic message for the popup
-  const [onOkAction, setOnOkAction] = useState(null); // Dynamic action for the OK button
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [onOkAction, setOnOkAction] = useState(null);
+  const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
+
+  // Validate form fields
+  const validateForm = () => {
+    let formErrors = {};
+    if (!selectedState) formErrors.state = "State is required";
+    if (!selectedTown) formErrors.town = "Town is required";
+    if (!selectedHospital) formErrors.hospital = "Hospital is required";
+    if (!selectedDepartment) formErrors.department = "Department is required";
+    if (!selectedDoctor) formErrors.doctor = "Doctor is required";
+    if (!selectedTimeSlot) formErrors.timeSlot = "Time slot is required";
+    
+    setErrors(formErrors);
+
+    return Object.keys(formErrors).length === 0; // If no errors, return true
+  };
 
   // Handle submission of appointment
   const handleSubmit = async () => {
     const auth = getAuth();
     const user = auth.currentUser;
 
+    if (!validateForm()) {
+      return; // Stop submission if form is invalid
+    }
+
     if (!user) {
       setPopupMessage(loginPopup);
-      setOnOkAction(() => () => navigate('/login')); // Set the action for "OK" button to navigate to login
+      setOnOkAction(() => () => navigate('/login')); 
       setShowPopup(true);
       return;
     }
@@ -52,15 +72,13 @@ const BookOPD = () => {
       const docRef = await addDoc(collection(db, "appointments"), appointmentData);
       console.log("Document written with ID: ", docRef.id);
 
-      // Send notification (this will be handled separately)
-      setPopupMessage(sucessAppointment); //send success appointment popup
-      setOnOkAction(() => () => navigate('/homepage')); //navigate to /homepage on clicking "ok"
+      setPopupMessage(successAppointment);
+      setOnOkAction(() => () => navigate('/homepage')); 
       setShowPopup(true);
-      // navigate("/homepage");
     } catch (e) {
       console.error("Error adding document: ", e);
       setPopupMessage(failedAppointment);
-      setOnOkAction(() => () => setShowPopup(false)); // Close the popup on failed booking
+      setOnOkAction(() => () => setShowPopup(false));
       setShowPopup(true);
     }
   };
@@ -83,6 +101,7 @@ const BookOPD = () => {
             </option>
           ))}
         </select>
+        {errors.state && <p className="error">{errors.state}</p>} {/* Show error message */}
 
         {/* Town Dropdown */}
         {selectedState && (
@@ -99,6 +118,7 @@ const BookOPD = () => {
                 </option>
               ))}
             </select>
+            {errors.town && <p className="error">{errors.town}</p>}
           </>
         )}
 
@@ -119,6 +139,7 @@ const BookOPD = () => {
                 )
               )}
             </select>
+            {errors.hospital && <p className="error">{errors.hospital}</p>}
           </>
         )}
 
@@ -139,6 +160,7 @@ const BookOPD = () => {
                 )
               )}
             </select>
+            {errors.department && <p className="error">{errors.department}</p>}
           </>
         )}
 
@@ -159,6 +181,7 @@ const BookOPD = () => {
                 )
               )}
             </select>
+            {errors.doctor && <p className="error">{errors.doctor}</p>}
           </>
         )}
 
@@ -179,11 +202,14 @@ const BookOPD = () => {
                   </option>
                 ))}
             </select>
+            {errors.timeSlot && <p className="error">{errors.timeSlot}</p>}
           </>
         )}
 
         {/* Submit Button */}
-        <button onClick={handleSubmit}>Book Appointment</button>
+        <button onClick={handleSubmit} disabled={!selectedState || !selectedTown || !selectedHospital || !selectedDepartment || !selectedDoctor || !selectedTimeSlot}>
+          Book Appointment
+        </button>
 
         {/* Conditionally render the popup */}
         {showPopup && <Popup message={popupMessage} onOk={onOkAction} />}

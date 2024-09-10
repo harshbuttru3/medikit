@@ -120,16 +120,19 @@ const Appointments = () => {
         <ul>
           {appointments.map((appointment) => (
             <li key={appointment.id}>
-              <div>
-                <p>State: {appointment.state}</p>
-                <p>Town: {appointment.town}</p>
-                <p>Hospital: {appointment.hospital}</p>
-                <p>Department: {appointment.department}</p>
-                <p>Doctor: {appointment.doctor}</p>
-                <p>Time Slot: {appointment.timeSlot}</p>
-                <p>Booked on: {appointment.timestamp.toDate().toLocaleString()}</p>
-                <button onClick={() => downloadPDF(appointment)} className="download-pdf-btn">Download PDF</button>
-                <button onClick={() => handleCancelClick(appointment)} className="cancel-appointment-btn">Cancel Appointment</button>
+              <div id='gridapp'>
+                <span id= 'gridspan'>State: <br /> {appointment.state}</span>
+                <span id= 'gridspan'>Town: <br /> {appointment.town}</span>
+                <span id= 'gridspan'>Hospital: <br /> {appointment.hospital}</span>
+                <span id= 'gridspan'>Department: <br /> {appointment.department}</span>
+                <span id= 'gridspan'>Doctor: <br /> {appointment.doctor}</span>
+                <span id= 'gridspan'>Time Slot: <br /> {appointment.timeSlot}</span>
+                <span id= 'gridspan'>Booked on: <br /> {appointment.timestamp.toDate().toLocaleString()}</span>
+              </div>
+              <div id="gridbutton">
+
+                <button id='gridbut' onClick={() => handleCancelClick(appointment)} className="cancel-appointment-btn gridbut">Cancel Appointment</button>
+                <button id='gridbut' onClick={() => downloadPDF(appointment)} className="download-pdf-btn">Download Appointment</button>
               </div>
             </li>
           ))}

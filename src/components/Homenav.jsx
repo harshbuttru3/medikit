@@ -41,7 +41,7 @@ function Homenav() {
 
   return (
     <>
-      <header ref={navRef}>
+      <header id='headerr' ref={navRef}>
         <nav >
           <i className="fa-solid fa-kit-medical" style={{color: "#0be545", fontSize: "25px"}}></i>
           <NavLink to="/" className='navlink' activeClassName="active">HOME</NavLink>

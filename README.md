@@ -33,3 +33,20 @@ git clone https://github.com/your-username/medikit.git
 cd medikit
 npm install
 npm run dev
+
+
+
+TODO For SIH:
+[
+ ppt ke basis pe selection hoga -15sept tak final bana dena hai,
+ team members - (Document),
+ time: "from 8am to 10pm",
+ software waale video daal sakte hai but sir ka suggestion hai ki agar frontend achhi nahi hai to mat daalo,
+ Figma ka link daal sakte hai,
+ kuch significant, unique hona jaruri hai,
+ we can submit two problem statements,
+
+Ai /Ml can be implemented
+fifo algo, age based, medical condition , pregnant ladies
+
+]

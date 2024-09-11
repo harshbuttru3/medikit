@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import { db, doc, onSnapshot } from '../firebaseConfig';
+import { ambulanceDb, doc, onSnapshot } from './firebaseAmbulance'; // Import from ambulance-specific Firebase config
 
 // Custom hook to update map view
 const ChangeMapView = ({ position }) => {
@@ -27,7 +27,7 @@ const AmbulanceTracker = () => {
   useEffect(() => {
     if (!ambulanceId) return;
 
-    const ambulanceRef = doc(db, 'ambulances', ambulanceId);
+    const ambulanceRef = doc(ambulanceDb, 'ambulances', ambulanceId); // Use ambulanceDb from ambulance-specific Firebase app
 
     // Listen for real-time updates to the ambulance's location
     const unsubscribe = onSnapshot(ambulanceRef, (doc) => {
@@ -65,7 +65,7 @@ const AmbulanceTracker = () => {
       {error && <div style={{ color: 'red' }}>{error}</div>}
       <MapContainer 
         center={[ambulanceLocation.lat, ambulanceLocation.lng]} 
-        zoom={13} 
+        zoom={50} 
         style={{ height: '800px', width: '100%' }}
       >
         <TileLayer

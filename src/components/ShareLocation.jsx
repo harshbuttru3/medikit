@@ -1,6 +1,5 @@
-// src/ShareLocation.jsx
 import React, { useEffect, useState } from 'react';
-import { db, doc, setDoc } from '../firebaseConfig';
+import { ambulanceDb, doc, setDoc } from './firebaseAmbulance'; // Ensure correct Firebase configuration
 
 // Function to generate a random ID
 const generateRandomId = () => {
@@ -20,13 +19,9 @@ const ShareLocation = () => {
 
     const updateLocation = (position) => {
       const { latitude, longitude } = position.coords;
-      if (!ambulanceId) {
-        console.error("No ambulance ID available.");
-        return;
-      }
-      
+
       // Update the ambulance's location in Firestore
-      const ambulanceRef = doc(db, 'ambulances', ambulanceId);
+      const ambulanceRef = doc(ambulanceDb, 'ambulances', ambulanceId);
       setDoc(ambulanceRef, {
         lat: latitude,
         lng: longitude,
@@ -40,17 +35,24 @@ const ShareLocation = () => {
       console.error("Error fetching location: ", error);
     };
 
-    if (navigator.geolocation) {
-      const watchId = navigator.geolocation.watchPosition(updateLocation, errorHandler, {
-        enableHighAccuracy: true,
-        maximumAge: 10000,
-        timeout: 5000,
-      });
+    // Function to get the current location and update Firestore
+    const trackLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(updateLocation, errorHandler, {
+          enableHighAccuracy: true,
+          maximumAge: 10000,
+          timeout: 5000,
+        });
+      } else {
+        console.error("Geolocation is not supported by this browser.");
+      }
+    };
 
-      return () => navigator.geolocation.clearWatch(watchId);
-    } else {
-      console.error("Geolocation is not supported by this browser.");
-    }
+    // Set interval to update location every 10 seconds
+    const intervalId = setInterval(trackLocation, 10000); // 10 seconds = 10000 ms
+
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
   }, [ambulanceId]);
 
   return (

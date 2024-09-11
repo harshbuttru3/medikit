@@ -40,7 +40,7 @@ const ShareLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(updateLocation, errorHandler, {
           enableHighAccuracy: true,
-          maximumAge: 10000,
+          maximumAge: 120000,
           timeout: 5000,
         });
       } else {
@@ -49,7 +49,7 @@ const ShareLocation = () => {
     };
 
     // Set interval to update location every 10 seconds
-    const intervalId = setInterval(trackLocation, 10000); // 10 seconds = 10000 ms
+    const intervalId = setInterval(trackLocation, 120000); // 10 seconds = 10000 ms
 
     // Clear the interval on component unmount
     return () => clearInterval(intervalId);

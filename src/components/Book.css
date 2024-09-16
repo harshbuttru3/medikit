@@ -73,3 +73,55 @@
   border-color: #4CAF50;
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
 }
+
+/* For screen sizes of 1000px and above */
+@media (max-width: 1000px) {
+  #opdbook #opd {
+    width: 70%; /* Adjust width for smaller screens */
+    padding: 15px 40px; /* Reduce padding */
+  }
+
+  #opdbook #opd h1 {
+    font-size: 40px; /* Adjust heading size */
+  }
+
+  #opdbook #opd label {
+    font-size: 15px; /* Adjust label font size */
+  }
+
+  #opdbook #opd select, #opdbook #opd button {
+    font-size: 13px; /* Adjust select and button font size */
+  }
+
+  #opdbook #opd button {
+    padding: 8px 12px; /* Adjust button padding */
+  }
+}
+
+/* For screen sizes of 768px and above */
+@media (max-width: 768px) {
+  #opdbook {
+    padding: 2% 2%; /* Adjust container padding */
+  }
+
+  #opdbook #opd {
+    width: 90%; /* Further reduce form width */
+    padding: 10px 30px; /* Further reduce padding */
+  }
+
+  #opdbook #opd h1 {
+    font-size: 35px; /* Further adjust heading size */
+  }
+
+  #opdbook #opd label {
+    font-size: 14px; /* Further adjust label font size */
+  }
+
+  #opdbook #opd select, #opdbook #opd button {
+    font-size: 12px; /* Further adjust select and button font size */
+  }
+
+  #opdbook #opd button {
+    padding: 7px 10px; /* Further adjust button padding */
+  }
+}

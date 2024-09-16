@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './integration.css'; // Ensure you import your CSS
 import Cursor from './Cursor'; // Import the Cursor component
 

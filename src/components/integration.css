@@ -20,7 +20,7 @@
     text-align: center;
 }
 
-.box {
+ .page5 .box {
     width: 90%; /* Adjust width to be responsive */ /* Add a max-width for larger screens */
     display: flex;
     align-items: center;
@@ -33,14 +33,14 @@
     font-size: 15px;
 }
 
-.box:hover{
+.page5 .box:hover{
     background-color: black;
     color: white;
     transition: all ease-in-out 0.4s;
 }
 
 
-.box:nth-last-child(1) {
+.page5 .box:nth-last-child(1) {
     border-bottom: 2px solid #dadada;
 }
 
@@ -49,7 +49,7 @@
         padding: 10px; /* Adjust padding for smaller screens */
     }
 
-    .box {
+    .page5 .box {
         width: 100%; /* Full width on smaller screens */
         padding: 0 10px; /* Less padding on smaller screens */
     }

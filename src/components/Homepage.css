@@ -35,7 +35,10 @@
 }
 
 #homepage .container .card:hover {
-  transform: translate3d(20px,20px,20px);
+  /* transform: rotate3d(-5,-5,0,20deg); */
+  scale: 1.15;
+  transition: all ease 0.7s;
+  background-color: rgb(25, 192, 19);
 }
 
 #homepage .container .card .icon {

@@ -14,7 +14,7 @@
   
   /* Popup box styling */
   .popup {
-    background-color: white;
+    background-color: rgb(35, 175, 0);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -29,7 +29,7 @@
     margin-top: 20px;
     padding: 10px 20px;
     background-color: #0cce3d;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     border: none;
     border-radius: 5px;
     cursor: pointer;

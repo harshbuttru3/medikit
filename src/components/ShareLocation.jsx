@@ -8,6 +8,7 @@ const generateRandomId = () => {
 
 const ShareLocation = () => {
   const [ambulanceId, setAmbulanceId] = useState(null);
+  const [lastLocation, setLastLocation] = useState(null); // State to store the last known location
 
   useEffect(() => {
     // Retrieve the ambulance ID from localStorage or generate a new one if not present
@@ -20,15 +21,31 @@ const ShareLocation = () => {
     const updateLocation = (position) => {
       const { latitude, longitude } = position.coords;
 
-      // Update the ambulance's location in Firestore
-      const ambulanceRef = doc(ambulanceDb, 'ambulances', ambulanceId);
-      setDoc(ambulanceRef, {
-        lat: latitude,
-        lng: longitude,
-        lastUpdated: Date.now(),
-      }).catch((error) => {
-        console.error("Error updating location: ", error);
-      });
+      // Function to check if the location has changed significantly
+      const hasSignificantChange = (newLat, newLng) => {
+        if (!lastLocation) return true; // Always update if there is no last location
+
+        const threshold = 0.001; // Define your threshold for significant change
+        const latDiff = Math.abs(newLat - lastLocation.lat);
+        const lngDiff = Math.abs(newLng - lastLocation.lng);
+
+        return latDiff > threshold || lngDiff > threshold;
+      };
+
+      // Update only if there is a significant change
+      if (hasSignificantChange(latitude, longitude)) {
+        const ambulanceRef = doc(ambulanceDb, 'ambulances', ambulanceId);
+        setDoc(ambulanceRef, {
+          lat: latitude,
+          lng: longitude,
+          lastUpdated: Date.now(),
+        }).catch((error) => {
+          console.error("Error updating location: ", error);
+        });
+
+        // Update the last known location
+        setLastLocation({ lat: latitude, lng: longitude });
+      }
     };
 
     const errorHandler = (error) => {
@@ -48,12 +65,12 @@ const ShareLocation = () => {
       }
     };
 
-    // Set interval to update location every 10 seconds
-    const intervalId = setInterval(trackLocation, 120000); // 10 seconds = 10000 ms
+    // Set interval to update location every 10 minutes (600000 ms)
+    const intervalId = setInterval(trackLocation, 600000);
 
     // Clear the interval on component unmount
     return () => clearInterval(intervalId);
-  }, [ambulanceId]);
+  }, [ambulanceId, lastLocation]);
 
   return (
     <div>

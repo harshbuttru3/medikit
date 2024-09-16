@@ -3,7 +3,7 @@ import './Homecrousel.css';
 
 function Homecrousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const totalSlides = 3;
+  const totalSlides = 4;
   const intervalRef = useRef(null);
 
   const updateSlider = (index) => {
@@ -49,13 +49,16 @@ function Homecrousel() {
       >
         <div className="slider-wrapper" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
           <div className="slider-slide">
-            <img src="/image/ambu.jpg" alt="Banner 1" />
+            <img src="/image/AMBULANCE.jpg" alt="Banner 1" />
           </div>
           <div className="slider-slide">
-            <img src="/image/bed.png" alt="Banner 2" />
+            <img src="/image/BED.jpg" alt="Banner 2" />
           </div>
           <div className="slider-slide">
-            <img src="/image/blood2.jpg" alt="Banner 3" />
+            <img src="/image/OPDS.jpg" alt="Banner 3" />
+          </div>
+          <div className="slider-slide">
+            <img src="/image/BLOOD.jpg" alt="Banner 4" />
           </div>
         </div>
 

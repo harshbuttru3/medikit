@@ -16,7 +16,7 @@ import Homenav from "./components/Homenav";
 import BedAvailability from './components/BedAvailability';
 import ShareLocation from './components/ShareLocation';
 import AmbulanceTracker from './components/AmbulanceTracker';
-import Social from './components/Social';
+// import Social from './components/Social';
 
 function App() {
   const router = createBrowserRouter([
@@ -24,7 +24,7 @@ function App() {
       path: "/",
       element: <>
       <Navbar/>
-      <Social/>
+      {/* <Social/> */}
       <Landing/>
       <Integration/>
       <Highlights/>

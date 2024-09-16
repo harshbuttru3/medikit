@@ -22,8 +22,8 @@
   
   .banner .slider-wrapper .slider-slide img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    /* height: 100%; */
+    object-fit: contain;
   }
   
   /* Navigation buttons */
@@ -59,13 +59,8 @@
   }
   
   @media only screen and (max-width: 480px) {
-    .banner {
-      height: 20vh;
-    }
-  
-    .banner .slider-btn {
-      padding: 5px;
-      font-size: 16px;
+    #Homecrousel{
+      display: none;
     }
   }
   

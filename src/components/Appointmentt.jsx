@@ -116,7 +116,7 @@ const Appointments = () => {
       {appointments.length === 0 ? (
         <p>No appointments booked yet.</p>
       ) : (
-        <ul>
+        <ul className='flexlist'>
           {appointments.map((appointment) => (
             <li key={appointment.id}>
               <div className="appointment-card">

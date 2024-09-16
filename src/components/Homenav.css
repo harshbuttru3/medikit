@@ -1,5 +1,5 @@
 #headerr{
-  background-color: red;
+  background-color: rgba(58, 57, 57, 0.9);
   position: sticky;
   top: 0px;
   z-index: 10000;
@@ -50,6 +50,7 @@ a:hover{
     transition: all ease 0.8s;
     font-weight: 800;
 }
+
 
 .fa-solid{
     margin-right: 40px;

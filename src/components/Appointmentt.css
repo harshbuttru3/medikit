@@ -20,6 +20,15 @@
   margin-bottom: 20px;
 }
 
+.flexlist{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.flexlist li{
+  margin:0 10px;
+  width: 40%;
+}
 /* Appointment Card */
 .appointments ul li .appointment-card {
   width: 100%;

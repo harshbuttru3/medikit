@@ -11,9 +11,6 @@ import Footer from './Footer'
 
 
 function Homepage() {
- const handleOPDBooking = () =>{
-  //some other logic
- }
   
   return (
     <div id='homepage'>
@@ -21,7 +18,7 @@ function Homepage() {
       <div className="container">
 
       <Link to="/opdbooking">
-        <div className="card" onClick={handleOPDBooking}>
+        <div className="card">
           <div className="icon">
             <img src="/image/consultation.gif" alt="e-OPD Card" />
           </div>

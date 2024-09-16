@@ -1,25 +1,25 @@
 #footer {
-    height: auto; /* Changed from 80vh to auto for better control on small screens */
+    height: 40vh; /* Changed from 80vh to auto for better control on small screens */
     width: 100%;
     box-sizing: border-box;
-    background-color: whitesmoke;
-    padding-top: 10%;
-    color: black;
-    padding-bottom: 20px; /* Added padding to bottom for better spacing on mobile */
+    background-color:whitesmoke;
 }
 
 #footer p {
-    background-color: rgb(63, 63, 63); 
-    color: white;
+    background-color: rgba(255, 0, 144, 0.604); 
+    color: black;
     text-align: center;
     font-size: 18px; /* Slightly smaller font for mobile */
     padding: 10px; /* Added padding for better spacing */
 }
 
 #footer .footerbox {
-    height: auto; /* Set to auto for better height control */
+    border-radius: 50px 50px 0 0;
+    height: 100%; /* Set to auto for better height control */
     width: 100%;
-    background-image: url('/image/footer3.jpg');
+    /* background-image: url('/image/footer3.jpg'); */
+    background-color: black;
+    color: wheat;
     display: flex;
     align-items: center;
     justify-content: center; /* Changed to center for better alignment on small screens */
@@ -31,7 +31,6 @@
 #footer .footerbox .board {
     height: auto; /* Set to auto for better height control */
     width: 90%; /* Increased width to fill more space on mobile */
-    background-color: rgba(156, 156, 156, 0.3);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     display: flex;
@@ -69,10 +68,6 @@
 
 /* Media query for small screens */
 @media (max-width: 768px) {
-    #footer .footerbox {
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center items */
-    }
 
     #footer .footerbox .board {
         width: 100%; /* Make the boards take full width */

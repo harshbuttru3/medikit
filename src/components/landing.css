@@ -37,9 +37,6 @@ a{
     text-shadow: 0 5px 10px #0004;
 }
 
-.carousel .list .item .content .des{
-    font-size: 20px;
-}
 
 .carousel .list .item .content .buttons button:hover{
     border: none;
@@ -56,11 +53,12 @@ a{
 }
 .carousel .list .item .title,
 .carousel .list .item .topic{
-    font-size: 5em;
+    font-size: 4em;
     font-weight: bold;
     line-height: 1.3em;
 }
 .carousel .list .item .topic{
+    font-size: 5em;
     color: #0be545;
 }
 .carousel .list .item .buttons{
@@ -121,7 +119,7 @@ a{
 .carousel .arrows{
     position: absolute;
     top: 80%;
-    right: 52%;
+    right: 50%;
     z-index: 100;
     width: 300px;
     max-width: 30%;
@@ -130,6 +128,7 @@ a{
     align-items: center;
 }
 .carousel .arrows button{
+    padding-left: 5%;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -307,8 +306,33 @@ a{
         flex-shrink: 0;
         position: relative;
     }
-    .carousel .list .item .content .des{
-        font-size: 15px;
+    .carousel .list .item .title,
+    .carousel .list .item .topic{
+    font-size: 4em;
+    font-weight: bold;
+    line-height: 1.3em;
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+    .carousel .list .item .content{
+        padding-right: 0;
+    }
+    .carousel .list .item .content .title{
+        font-size: 30px;
+    }
+    .carousel .thumbnail .item{
+        width: 100px;
+        height: 160px;
+        flex-shrink: 0;
+        position: relative;
+    }
+    .carousel .list .item .title,
+    .carousel .list .item .topic{
+    font-size: 3em;
+    font-weight: bold;
+    line-height: 1.3em;
     }
 }
 

@@ -1,4 +1,4 @@
-nav{
+#nav{
     width: 1140px;
     max-width: 80%;
     margin: 0px 60px;
@@ -9,7 +9,7 @@ nav{
      
 }
 
-nav a{
+#nav a{
     color: whitesmoke;
     margin-right: 40px;
     font-size: 25px;
@@ -58,10 +58,10 @@ header{
   header{
     max-width: 100%;
   }
-  nav{
+  #nav{
     margin: 0 10px;
   }
-  nav a{
+  #nav a{
     font-size: 20px;
     margin: 10px;
 
@@ -71,7 +71,7 @@ header{
     margin-left: 0;
     margin-right: 5px;
   }
-  nav #login{
+  #nav #login{
     font-size: 20px;
     border: 1.5px solid white;
   }
@@ -82,11 +82,11 @@ header{
   header{
     max-width: 100%;
   }
-  nav{
+  #nav{
     margin: 0 10px;
   }
-  nav a{
-    font-size: 10px;
+  #nav a{
+    font-size: 12px;
     margin: 4px;
 
   }
@@ -95,7 +95,7 @@ header{
     margin-left: 0;
     margin-right: 5px;
   }
-  nav #login{
+  #nav #login{
     font-size: 10px;
     border: 1px solid white;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Homepage.css";
 import { Link } from 'react-router-dom';
-import Appointments from './Appointment';
+import Appointments from './Appointmentt';
 import Homecrousel from './Homecrousel';
 import Homefeature from './Homefeature';
 import Highlights from './Highlights';

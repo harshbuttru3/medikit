@@ -1,11 +1,14 @@
 #headerr{
   background-color: red;
+  position: sticky;
+  top: 0px;
+  z-index: 10000;
 }
 
 
-nav{
+#headerr #nav{
     width: 1140px;
-    max-width: 80%;
+    max-width: 100%;
     margin: 0px 60px;
     height: 50px;
     display: flex;
@@ -14,26 +17,26 @@ nav{
      
 }
 
-nav a{
+#headerr #nav a{
     color: whitesmoke;
     margin-right: 40px;
     font-size: 25px;
 }
 
-header .navlink{
+#headerr #nav .navlink{
     color: whitesmoke;
 }
 
-header .navlink:hover{
+#headerr #nav .navlink:hover{
     color: #0be545;
 }
 
-header a:hover{
+a:hover{
     font-weight: 800;
     transition: all ease 0.3s;
 }
 
-header #login{
+#headerr #nav #login{
     color: whitesmoke;
     font-size: 25px;
     border: 2px solid white;
@@ -41,18 +44,11 @@ header #login{
     padding: 2px 10px;
 }
 
-header #login:hover{
+#headerr #nav #login:hover{
     background-color: #0be545;
     border: none;
     transition: all ease 0.8s;
     font-weight: 800;
-}
-
-header{
-    position: sticky;
-    top: 0px;
-    z-index: 10000;
-    /* background: grey; */
 }
 
 .fa-solid{
@@ -60,13 +56,13 @@ header{
 }
 
 @media screen and (max-width: 1000px) {
-  header{
+  #headerr{
     max-width: 100%;
   }
-  nav{
+  #headerr #nav{
     margin: 0 10px;
   }
-  nav a{
+  #headerr #nav a{
     font-size: 20px;
     margin: 10px;
 
@@ -76,7 +72,7 @@ header{
     margin-left: 0;
     margin-right: 5px;
   }
-  nav #login{
+  #headerr #nav #login{
     font-size: 20px;
     border: 1.5px solid white;
   }
@@ -84,13 +80,13 @@ header{
 }
 
 @media screen and (max-width: 480px) {
-  header{
+  #headerr{
     max-width: 100%;
   }
-  nav{
+  #headerr #nav{
     margin: 0 10px;
   }
-  nav a{
+  #headerr #nav a{
     font-size: 10px;
     margin: 4px;
 
@@ -100,7 +96,7 @@ header{
     margin-left: 0;
     margin-right: 5px;
   }
-  nav #login{
+  #headerr #nav #login{
     font-size: 10px;
     border: 1px solid white;
   }

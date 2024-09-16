@@ -28,10 +28,10 @@ function Navbar() {
           markers: false,
 
           onEnter: () => {
-            gsap.to(navElement, { backgroundColor: "grey", opacity: "0.9", duration: 0.3, ease: 'power1.inOut' });
+            gsap.to(navElement, { backgroundColor: "#333", opacity: "1", duration: 0.1, ease: 'power1.inOut' });
           },
           onLeaveBack: () => {
-            gsap.to(navElement, { backgroundColor: 'transparent', duration: 0.3, ease: 'power1.inOut' });
+            gsap.to(navElement, { backgroundColor: 'transparent', duration: 0.1, ease: 'power1.inOut' });
           }
         }
       }
@@ -41,12 +41,12 @@ function Navbar() {
   return (
     <>
       <header ref={navRef}>
-        <nav >
+        <nav id='nav'>
           <i className="fa-solid fa-kit-medical" style={{color: "#0be545", fontSize: "25px"}}></i>
           <NavLink to="/" className='navlink' activeClassName="active">HOME</NavLink>
           <NavLink to="/discover" className='navlink' activeClassName="active">FEATURES</NavLink>
           <NavLink to="/dashboard" className='navlink' activeClassName="active">HIGHLIGHTS</NavLink>
-          <NavLink to="/contact" className='navlink' activeClassName="active">CONTACT</NavLink>
+          <NavLink to="/contact" className='navlink' activeClassName="active">INFO</NavLink>
           <NavLink to="/login" id="login" activeClassName="active">LOGIN</NavLink>
         </nav>
       </header>

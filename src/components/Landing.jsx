@@ -87,9 +87,6 @@ class Landing extends Component {
                   <div className="author">MEDIKIT</div>
                   <div className="title">{item.title}</div>
                   <div className="topic">SERVICES</div>
-                  <div className="des">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat in omnis sit facilis nobis a iusto maiores, rem sunt, quisquam molestiae!
-                  </div>
                   <div className="buttons">
                     <button>EXPLORE</button>
                   </div>

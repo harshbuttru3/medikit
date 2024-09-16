@@ -16,12 +16,6 @@ function Footer() {
                 <h2>Topal</h2>
                 <h2>Instagram</h2>
             </div>
-            <div className="board links">
-                <h2>Facebook</h2>
-                <h2>Twitter</h2>
-                <h2>LinkedIn</h2>
-                <h2>Instagram</h2>
-            </div>
         </div>
         <p>@ copyright 2024</p>
     </div>

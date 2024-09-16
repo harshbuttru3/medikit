@@ -1,4 +1,4 @@
-.appointments {
+/* .appointments {
   padding: 20px;
   width: 100vw;
   height: 50vh;
@@ -6,7 +6,6 @@
   background-color: rgb(225, 252, 214);
   display: flex;
   align-items: center;
-  /* justify-content: ; */
   flex-direction: column;
   overflow-y: auto;
 }
@@ -101,4 +100,4 @@
   .appointments li {
     margin-bottom: 10px;
   }
-  
+   */

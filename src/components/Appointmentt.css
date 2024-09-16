@@ -67,7 +67,7 @@
     padding: 20px;
     display: flex;
     justify-content: space-between;
-    background-color: rgb(206, 206, 206); /* Adjust to your design preferences */
+    background-color: rgb(255, 255, 255); /* Adjust to your design preferences */
     height: auto;
   }
   
@@ -113,7 +113,7 @@
     display: flex;
     justify-content: flex-end;
     padding: 10px 20px;
-    background-color: #fff;
+    background-color: #cecece;
   }
   
   .appointments ul li .appointment-card   .action-buttons  .cancel-appointment-btn,

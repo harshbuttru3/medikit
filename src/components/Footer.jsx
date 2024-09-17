@@ -10,7 +10,7 @@ function Footer() {
           <img className="imglicence" src="/image/nic_logo.png" alt="" />
         </div>
       </div>
-      <p>Engineered by-<a href="https://harshbuttru3.github.io/portfolio" target="_blank"> Shivam</a> & <a href="https://harshbuttru3.github.io/portfolio" target="_blank">Aman</a></p>
+      <p>Engineered by-<a href="https://harshbuttru3.github.io/portfolio" target="_blank"> Shivam</a> & <a href="https://portfolio-unfinished.web.app" target="_blank">Aman</a></p>
     </div>
   );
 }

@@ -190,3 +190,44 @@ p {
   color: #333;
   font-family: 'Georgia', serif;
 }
+
+@media (max-width: 768px){
+  .flexlist {
+    flex-direction: column;
+  }
+  .flexlist li{
+    width: 95%;
+  }
+  .appointments ul li .appointment-card .header-section .logo-and-title .title h1 {
+    font-size: 1.3rem;
+    color: #5c5f7f;
+    margin: 0;
+  }
+  
+  .appointments ul li .appointment-card .header-section .logo-and-title .title p {
+    font-size: 0.8rem;
+  }
+  .appointments ul li .appointment-card .content-section .left-content h4 {
+    font-size: 12px;
+  }
+  
+  .appointments ul li .appointment-card .content-section .right-content #h33 {
+    font-size: 1rem;
+  }
+  
+  .appointments ul li .appointment-card .content-section .right-content h2 {
+    font-size: 1rem;
+  }
+  
+  .appointments ul li .appointment-card .content-section .right-content p {
+    font-size: 0.8rem;
+  }
+  .appointments ul li .appointment-card .content-section .right-content h2 {
+    font-size: 1.4rem;
+  }
+  .appointments ul li .appointment-card {
+    height: 42vh;
+  }
+  
+
+}

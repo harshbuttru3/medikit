@@ -138,8 +138,8 @@ const Appointments = () => {
                   </div>
                   <div className="right-content">
                     <h2>{appointment.doctor}</h2>
-                    <h3 id='h33'>Department: {appointment.department}</h3>
-                    <p>Hospital: {appointment.hospital}</p>
+                    <h3 id='h33'>{appointment.department}</h3>
+                    <p>{appointment.hospital}</p>
                     <p>Time Slot: {appointment.timeSlot}</p>
                   </div>
                 </div>

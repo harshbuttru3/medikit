@@ -67,7 +67,7 @@
 
 
 /* Mobile devices */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   #homepage .container {
     flex-direction: row;
     flex-wrap: wrap;

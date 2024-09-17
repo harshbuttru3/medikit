@@ -16,6 +16,8 @@ import Homenav from "./components/Homenav";
 import BedAvailability from './components/BedAvailability';
 import ShareLocation from './components/ShareLocation';
 import AmbulanceTracker from './components/AmbulanceTracker';
+import Comingsoon from './components/Comingsoon';
+import Error404 from './components/Error404';
 // import Social from './components/Social';
 
 function App() {
@@ -67,7 +69,15 @@ function App() {
     {
       path: "/ambulance",
       element: <AmbulanceTracker/>
-    }
+    },
+    {
+      path: "/Comingsoon",
+      element: <Comingsoon/>
+    },
+    {
+      path: "*",
+      element: <Error404/>
+    },
   ]);
 
   return (

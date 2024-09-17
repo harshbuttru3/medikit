@@ -1,0 +1,29 @@
+/* Full-screen container with a green background */
+#Comingsoon .coming-soon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #4caf50; /* Green background */
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Centered content */
+#Comingsoon .coming-soon-container .coming-soon-content {
+  text-align: center;
+  padding: 20px;
+  background-color: #ffffff;
+  color: #4caf50; /* Green text */
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#Comingsoon .coming-soon-container .coming-soon-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+#Comingsoon .coming-soon-container .coming-soon-content p {
+  font-size: 1.5rem;
+}

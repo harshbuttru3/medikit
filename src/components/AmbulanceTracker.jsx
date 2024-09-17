@@ -91,7 +91,7 @@ const AmbulanceTracker = () => {
             })}
           >
             <Popup>
-             AA raha hoon madharchod, gaand me ghus jao aadmi ke.
+             Be patient we will be there !
             </Popup>
           </Marker>
           <ChangeMapView position={[ambulanceLocation.lat, ambulanceLocation.lng]} />

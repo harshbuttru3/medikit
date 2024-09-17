@@ -6,7 +6,7 @@
 }
 
 #footer p {
-    background-color: rgba(255, 0, 144, 0.604); 
+    background-color: rgba(147, 176, 214, 0.604); 
     color: black;
     text-align: center;
     font-size: 18px; /* Slightly smaller font for mobile */
@@ -40,6 +40,15 @@
     margin-bottom: 20px; /* Added margin to separate boards on mobile */
 }
 
+#footer .footerbox .img {
+    gap: 30px;
+}
+
+#footer .footerbox .board .imglicence{
+    width: 300px;
+    height: 50px;
+}
+
 #footer .footerbox .board h1 {
     font-size: 28px; /* Reduced font size for better fit */
     margin-bottom: 20px;
@@ -64,6 +73,15 @@
 
 #footer .footerbox .links h2:hover{
     cursor: pointer;
+}
+
+#footer p {
+    color: white;
+}
+
+a {
+    color: #0be545;
+    text-decoration: none;
 }
 
 /* Media query for small screens */

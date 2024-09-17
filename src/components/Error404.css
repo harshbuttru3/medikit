@@ -1,0 +1,50 @@
+/* Full-screen container with a green background */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #E8F5E9; /* Light green background */
+    color: #4CAF50; /* Green color for error text */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Card-style content in the center */
+  .error-content {
+    text-align: center;
+    padding: 30px;
+    background-color: #ffffff;
+    color: #333;
+    border-radius: 10px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    width: 400px;
+  }
+  
+  /* Large 404 text */
+  .error-content h1 {
+    font-size: 6rem;
+    margin: 0;
+    color: #4CAF50; /* Green for large "404" */
+  }
+  
+  /* Error message text */
+  .error-content p {
+    font-size: 1.25rem;
+    margin: 20px 0;
+  }
+  
+  /* Home button */
+  .home-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green button */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .home-link:hover {
+    background-color: #388E3C; /* Darker green on hover */
+  }
+  

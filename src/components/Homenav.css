@@ -50,10 +50,16 @@ a:hover {
   font-weight: 800;
 }
 
-.fa-solid {
-  /* margin-right: 40px; */
+.fa-user{
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
-
+.username{
+  position: absolute;
+  right: 100px;
+  top: 10px;
+}
 #menubar {
   display: none;
 }

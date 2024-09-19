@@ -18,6 +18,8 @@ import ShareLocation from './components/ShareLocation';
 import AmbulanceTracker from './components/AmbulanceTracker';
 import Comingsoon from './components/Comingsoon';
 import Error404 from './components/Error404';
+import SaveHospitalDataComponent from './components/SaveToFirestoreSingleDoc';
+import ProfilePage from './components/ProfilePage';
 // import Social from './components/Social';
 
 function App() {
@@ -75,9 +77,22 @@ function App() {
       element: <Comingsoon/>
     },
     {
+      path: "/saveHospital",
+      element: <SaveHospitalDataComponent/>
+    },
+    {
+      path: "/profile",
+      element: <ProfilePage/>
+    },
+
+
+
+
+
+    {
       path: "*",
       element: <Error404/>
-    },
+    } 
   ]);
 
   return (
